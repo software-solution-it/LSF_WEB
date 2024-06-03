@@ -32,7 +32,16 @@ const Inauguration: React.FC = () => {
         } else if (type === 2) {
             navigate('/step/inauguration_2');
         } else if (type === 3) {
-            navigate('/step/inauguration_6');
+            if(currentUser?.supplier.supplierType == 1){
+            navigate('/step/board');
+            }else if(currentUser?.supplier.supplierType == 2){
+            navigate('/step/product');
+            }else if(currentUser?.supplier.supplierType == 3){
+            navigate('/step/payment');  
+            }
+            else if(currentUser?.supplier.supplierType == 4){
+            navigate('/step/technician'); 
+            }
         } else if (type === 4) {
             navigate('/step/laundry_inauguration');
         }

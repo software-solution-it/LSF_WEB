@@ -43,18 +43,8 @@ const Supplier_Product: React.FC = () => {
     }, []);
 
     const handleNext = async () => {
-        const productTypes = ['detergent', 'softener', 'stainRemover'];
-        const responses = await Promise.all(
-            productTypes.map(async (type) => {
-                const productId = selectedProducts[type];
-                if (productId) {
-                    return await supplierService.createUserSupplier(3);
-                }
-                return null;
-            })
-        );
-
-        if (responses.some((response) => response)) {
+        const response = await supplierService.createUserSupplier(3);
+        if (response) {
             navigate('/step/payment');
         }
     };
