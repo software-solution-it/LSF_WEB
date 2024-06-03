@@ -171,9 +171,10 @@ const Inauguration_2: React.FC = () => {
                                             Calcular
                                         </button>
 
-                                        <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
+                                      {/*  <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
                                             Visualizar modelo
                                         </button>
+                                        */} 
                                         </div>
 
                                         <div className="mt-4 container-quantity p-3 text-center">

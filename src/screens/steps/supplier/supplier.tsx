@@ -55,16 +55,10 @@ const Suplier: React.FC = () => {
     const handleWhatsappClick = () => {
         const supw = supplier.find((s: any) => s.id === Number(comboSelectedId));
         const phoneNumber = supw.phone;
-        const shoppingList = "Lista de compras:\n- Item 1\n- Item 2\n- Item 3"; // Substitua pela sua lista real
-        const pngLink = "https://dnschecker.org/themes/common/images/general/logo.svg"; // Substitua pelo link real do seu arquivo PNG
-    
-        const whatsappMessage = `${encodeURIComponent(shoppingList)}\n\nVeja o PNG aqui: ${encodeURIComponent(pngLink)}`;
-        const whatsappLink = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-        
+        const whatsappLink = `https://wa.me/${phoneNumber}`;
         window.open(whatsappLink, "_blank");
         setWhatsappOpen(true);
     };
-    
     
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
