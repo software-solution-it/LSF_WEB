@@ -32,15 +32,16 @@ const Inauguration: React.FC = () => {
         } else if (type === 2) {
             navigate('/step/inauguration_2');
         } else if (type === 3) {
-            if(currentUser?.supplier.supplierType == 1){
-            navigate('/step/board');
-            }else if(currentUser?.supplier.supplierType == 2){
-            navigate('/step/product');
-            }else if(currentUser?.supplier.supplierType == 3){
-            navigate('/step/payment');  
-            }
-            else if(currentUser?.supplier.supplierType == 4){
-            navigate('/step/technician'); 
+            if (currentUser?.supplier == null) {
+                navigate('/step/inauguration_6');
+            } else if (currentUser?.supplier.supplierType === 1) {
+                navigate('/step/board');
+            } else if (currentUser?.supplier.supplierType === 2) {
+                navigate('/step/product');
+            } else if (currentUser?.supplier.supplierType === 3) {
+                navigate('/step/payment');
+            } else if (currentUser?.supplier.supplierType === 4) {
+                navigate('/step/technician');
             }
         } else if (type === 4) {
             navigate('/step/laundry_inauguration');
@@ -105,7 +106,7 @@ const Inauguration: React.FC = () => {
                 renderStep(3, 'Aquisição', true, false),
                 renderStep(4, 'Inauguração', true, false)
             ];
-        } else if (currentUser.supplier === null) {
+        } else if (currentUser.technician === null) {
             currentStep = renderStep(3, 'Aquisição', false, false);
             nextSteps = [
                 renderStep(4, 'Inauguração', true, false)
