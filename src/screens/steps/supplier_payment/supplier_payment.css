@@ -1,0 +1,31 @@
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    border-bottom: 1px solid #d4d4d4;
+    padding: 8px 0;
+    font-size: 16px;
+    color: #6c757d;
+    width: 100%;
+}
+
+.form-select:focus {
+    transition: all 0.8s;
+    box-shadow: none;
+    border-bottom-color: #ffccd5;
+}
+
+.btn-request-confirm-suplier{
+    background-color: #383a99 !important;
+    color: white !important;
+    border-radius: 30px;
+}
+
+.select-error {
+    border: 1px solid red !important;
+}
+
+.whatsapp-hidden{
+    display: none !important;
+}

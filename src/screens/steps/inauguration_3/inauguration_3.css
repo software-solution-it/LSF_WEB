@@ -1,0 +1,61 @@
+
+
+.recommendation {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.machine-selection {
+    display: flex;
+    flex-direction: column;
+}
+
+.machine-option {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.machine-option label {
+    margin-left: 0.5rem;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.quantity-control button {
+    background-color: #ddd;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.quantity-control span {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+}
+
+.welcome-section-quantity{
+    min-height: 200px;
+    padding: 20px;
+    box-shadow: 10px 14px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    overflow: hidden;
+} 
+
+.btn-request-confirm-disabled{
+    background-color: #4b4dc7 !important;
+    color: white !important;
+    border-radius: 30px;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.increase-button:hover{
+    background-color: rgba(6, 106, 171, 1) !important;
+    color: white !important;
+    transition: all 0.8s;
+}

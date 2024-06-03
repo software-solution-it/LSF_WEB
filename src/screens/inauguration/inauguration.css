@@ -1,0 +1,33 @@
+.welcome-section-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    align-items: flex-start;
+    width: 1250px;
+    margin-bottom: 20px;
+}
+
+.inauguration-info {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 12px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    background-color: white;
+    overflow: hidden;
+}
+
+.on-board{
+background-color: rgba(253, 226, 173, 1);
+}
+
+.closed{
+background-color: rgba(123, 220, 181, 0.3);
+}
+
+.blocked{
+background-color: rgba(247, 141, 167, 1);
+}
+
+.status{
+    width: 180px !important;
+}

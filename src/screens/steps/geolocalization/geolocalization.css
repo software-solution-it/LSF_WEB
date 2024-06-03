@@ -1,0 +1,16 @@
+.welcome-section-geolocalization{
+    min-height: 600px;
+    padding: 20px;
+    box-shadow: 10px 14px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+
+.map-container {
+    height: 400px;
+    width: 100%;
+    border: 8px solid #f1f1f1;
+    overflow: hidden; /* Isso ajuda a manter o formato redondo */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra ao mapa */
+}

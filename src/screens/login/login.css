@@ -1,0 +1,66 @@
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    opacity: 1;
+    transform: scale(0.85) translateY(-1.5rem) translateX(-0.15rem);
+}
+
+.logo {
+    margin-top: 50px !important;
+    width: 240px !important;
+}
+
+
+.form-floating > label {
+    opacity: 0.65;
+    transform-origin: top left;
+    transition: all 0.2s ease-in-out;
+}
+
+.eye-icon {
+    right: 0.7rem;
+    top: 35%;
+    transform: translateY(-50%);
+}
+
+.eye-icon-old {
+    right: 0.7rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.form-floating > .login-type {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-width: 3px;
+}
+
+
+.custom-password .form-control.is-invalid {
+    background-position: right calc(2em + .1875rem) center;
+}
+
+.login-type {
+    width: 30rem;
+}
+
+@media (max-width: 768px) { /* breakpoint para md no Bootstrap */
+    .login-type {
+        width: 100% !important;
+    }
+    .logo {
+        width: 240px !important;
+    }
+}
+
+.container-fluid{
+    background-color: #F5F8FF !important;
+}
+
+
+.btn-request-signin{
+    width: 40% !important;
+}
+
+
+

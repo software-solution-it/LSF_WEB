@@ -1,0 +1,81 @@
+.inauguracao {
+    border-right: 1px solid #e0e0e0;
+    background: linear-gradient(to bottom, rgba(78, 79, 159, 1), rgba(0, 1, 78, 1));
+    
+}
+
+.btn-request, .btn-request-confirm{
+    width: 330px;
+    border-radius: 30px !important;
+}
+
+.circle-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.circle-svg {
+    position: absolute;
+    top: 5%;
+    left: -8.7%;
+    width: 45%;
+    height: 90%;
+    clip-path: inset(0 25% 0 0);
+}
+
+.logo {
+    margin-top: 70px !important;
+    width: 340px !important;
+}
+
+.btn-request:hover{
+    border-color: #00014E !important;
+    transition: all 0.5s;
+}
+
+.btn-request-confirm-steps{
+    background-color: #383a99 !important;
+    color: white !important;
+    width: 200px;
+    border-radius: 30px !important;
+}
+
+.btn-request-confirm-steps:hover{
+    background-color: #00014E !important;
+    transition: all 0.5s;
+}
+
+.btn-request-confirm {
+    background-color: #383a99 !important;
+    color: white !important;
+    border-radius: 30px !important;
+}
+
+.btn-request-confirm:hover {
+    background-color: #00014E !important;
+    transition: all 0.5s;
+}
+
+.custom-width {
+    width: 100%;
+    padding: 0 15px ;
+}
+
+@media (min-width: 768px) { /* breakpoint para md no Bootstrap */
+    .custom-width {
+        width: 50%;
+    }
+    .btn-request, .btn-request-confirm{
+        width: 280px !important;
+    }
+}
+
+
+@media (max-width: 768px) { 
+    .btn-request, .btn-request-confirm{
+        width: 300px !important;
+    }
+}

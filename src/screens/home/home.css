@@ -1,0 +1,326 @@
+/* Basic styles for the header and menu */
+li {
+    list-style-type: none !important;
+}
+
+ul{
+    padding: 0 !important; 
+}
+
+.header {
+    padding: 10px 20px;
+    background-color: #00014E;;
+    color: white;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-bottom: 2px solid white;
+}
+
+.menu-icon {
+    cursor: pointer;
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+}
+
+.notification-icon .dropdown {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 10px 0px 10px 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.notification-icon .dropdown.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 20px;
+}
+
+.notification-icon .bell-icon:hover {
+    animation: ring 1s ease;
+    transition: all 1s ease;
+}
+
+@keyframes ring {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+    100% { transform: rotate(0); }
+}
+
+.hamburger span {
+    background-color: #fff;
+    height: 2px;
+    width: 100%;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.logo-home {
+    width: 150px;
+}
+
+/* Styles for the menu */
+.menu {
+    position: absolute;
+    top: 999;
+    left: -250px;
+    width: 250px;
+    z-index: 999;
+    height: 100%;
+    background-color: #00014E;;
+    color: white;
+    transition: left 0.3s ease;
+}
+
+.menu.open {
+    left: 0;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu ul li {
+    padding: 10px 20px;
+}
+
+.menu ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.menu ul li a.active,
+.menu ul li a:hover {
+    background-color: rgba(180, 179, 179, 0.3);
+}
+
+.icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    align-items: center;
+}
+
+.welcome-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    align-items: flex-start;
+    width: 800px;
+    margin-bottom: 20px;
+}
+
+.welcome-section h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.welcome-section p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button .icon {
+    margin-right: 10px;
+}
+
+.project-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.project-button:hover {
+    background-color: #0056b3;
+}
+
+.new-project-button {
+    background-color: #dadada !important;
+    color: white;
+    cursor: not-allowed !important;
+}
+
+.new-project-button:hover {
+    background-color: #218838;
+}
+.project-info {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 16px 8px rgba(0, 0, 0, 0.2) !important;
+    min-width: 600px;
+    cursor: pointer;
+    background-color: white;
+    overflow: hidden;
+}
+
+.project-info::before,
+.project-info::after,
+.project-info span::before,
+.project-info span::after {
+    content: '';
+    position: absolute;
+    background: #007bff;
+    transition: all 1.5s ease;
+}
+
+.project-info::before {
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+}
+
+.project-info::after {
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+}
+
+.project-info span::before {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+}
+
+.project-info span::after {
+    bottom: 0;
+    right: 0;
+    width: 4px;
+    height: 0;
+}
+
+.project-info:hover::before,
+.project-info:hover::after {
+    width: 100%;
+}
+
+.project-info:hover span::before,
+.project-info:hover span::after {
+    height: 100%;
+}
+
+.project-info h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.project-info p {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.schedule {
+    list-style: none;
+    padding: 0;
+}
+
+.schedule li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.schedule li i {
+    margin-right: 10px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    color: #353535;
+}
+
+.schedule li span {
+    display: flex;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .welcome-section {
+        width: 100%;
+    }
+
+    .project-info {
+        width: 80% !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .welcome-section {
+        min-width: 90%;
+        padding: 0 10px;
+    }
+
+    .project-info {
+        position: relative;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-width: 90% !important;
+        cursor: pointer;
+        background-color: white;
+        overflow: hidden;
+    }
+}
