@@ -1,9 +1,9 @@
-import axios from "axios";
+import api from './api';
 
 const getCurrentUser = async () => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post('/api/user/Customer', {}, {
+        const response = await api.post('/user/Customer', {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -17,7 +17,7 @@ const getCurrentUser = async () => {
 
 const login = async (email:string, password:string) => {
     try {
-        const response = await axios.post(`/api/user/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        const response = await api.post(`/user/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
         return response.data;  
     } catch (error) {
         console.error(error);

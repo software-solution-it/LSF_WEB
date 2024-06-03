@@ -1,10 +1,10 @@
-import axios from 'axios';
+import api from './api';
 
 const getSupplierProductByType = async (type: number) => {
     try {
         const token = localStorage.getItem('accessToken');
         
-        const response = await axios.get(`/api/api/Supplier/SupplierProducts?supplierType=${encodeURIComponent(type)}`, {
+        const response = await api.get(`/api/Supplier/SupplierProducts?supplierType=${encodeURIComponent(type)}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -19,7 +19,7 @@ const getSuppliersByType = async (type: number) => {
     try {
         const token = localStorage.getItem('accessToken');
         
-        const response = await axios.get(`/api/api/Supplier/SupplierType?supplierType=${encodeURIComponent(type)}`, {
+        const response = await api.get(`/api/Supplier/SupplierType?supplierType=${encodeURIComponent(type)}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -33,7 +33,7 @@ const getSuppliersByType = async (type: number) => {
 const createUserSupplier = async (supplierType:any) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Supplier/UserSupplier?supplierId=${encodeURIComponent(supplierType)}`, {}, {
+        const response = await api.post(`/api/Supplier/UserSupplier?supplierId=${encodeURIComponent(supplierType)}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -49,7 +49,7 @@ const createUserInauguration = async () => {
     try {
         const name = "Minha Lavanderia"
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Inauguration?name=${encodeURIComponent(name)}`, {}, {
+        const response = await api.post(`/api/Inauguration?name=${encodeURIComponent(name)}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -64,7 +64,7 @@ const createUserInauguration = async () => {
 const createUserTech = async (supplierType:any) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Technician?techId=${encodeURIComponent(supplierType)}`, {}, {
+        const response = await api.post(`/api/Technician?techId=${encodeURIComponent(supplierType)}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

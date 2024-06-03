@@ -2,7 +2,7 @@ import api from './api';
 
 const createTechnician = async (id:number) => {
     try {
-        const response = await api.post('/api/Technician',{
+        const response = await api.post('/Technician',{
             techId: id
         });
         return response.data;  
