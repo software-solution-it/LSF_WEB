@@ -1,5 +1,5 @@
-import axios from 'axios';
-import api from './api';
+import axios from "axios";
+import api from "./api";
 
 const getCurrentUser = async () => {
     try {
@@ -18,7 +18,7 @@ const getCurrentUser = async () => {
 
 const login = async (email:string, password:string) => {
     try {
-        const response = await axios.post(`/api/user/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        const response = await api.post(`/user/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
         return response.data;  
     } catch (error) {
         console.error(error);

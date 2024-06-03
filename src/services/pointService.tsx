@@ -3,7 +3,7 @@ import api from './api';
 const createPoint = async (point: PointData) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await api.post('/Point', point , {
+        const response = await api.post('/api/Point', point , {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
