@@ -1,8 +1,9 @@
-import api from './api';
+import axios from "axios";
+
 
 const createTechnician = async (id:number) => {
     try {
-        const response = await api.post('/api/Technician',{
+        const response = await axios.post('/api/api/Technician',{
             techId: id
         });
         return response.data;  
