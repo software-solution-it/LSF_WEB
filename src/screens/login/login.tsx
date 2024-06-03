@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [language, setLanguage] = useState('pt'); // Set the language to 'pt'
+    const [language] = useState('pt'); // Set the language to 'pt'
     const navigate = useNavigate();
 
     const handleLogin = async () => {
