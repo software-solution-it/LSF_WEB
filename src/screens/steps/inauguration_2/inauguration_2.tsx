@@ -6,6 +6,11 @@ import { CurrentUser } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import pointService from '../../../services/pointService';
 import Modal from '../../../components/Modal';
+import Plant3x4 from '../../../assets/plant/3x4.png';
+import Plant4x4 from '../../../assets/plant/4x4.png';
+import Plant4x4_2 from '../../../assets/plant/4x4_2.png';
+import Plant5x6 from '../../../assets/plant/5x6.png';
+import ImageModal from '../../../components/ImageModal';
 
 interface PointData {
     width: string;
@@ -19,6 +24,8 @@ const Inauguration_2: React.FC = () => {
     const [length, setLength] = useState('');
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
     const [showModal, setShowModal] = useState(false);
+    const [showImageModal, setShowImageModal] = useState(false); 
+    const [imageSrc, setImageSrc] = useState<string | string[]>(''); // New state for image source
     const [machineCount, setMachineCount] = useState(0);
     const [invalidWeight, setInvalidWeight] = useState(false);
     const [invalidNext, setInvalidNext] = useState(false);
@@ -43,7 +50,7 @@ const Inauguration_2: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if(Number(width) < 4 || Number(length) < 4){
+            if(Number(width) < 3 || Number(length) < 4){
                 setInvalidWeight(false);
                 setInvalidNext(false);
             }else{
@@ -84,11 +91,35 @@ const Inauguration_2: React.FC = () => {
         const machinesPerRow = Math.floor(widthNum / 2);
         const machinesPerColumn = Math.floor(lengthNum / 2);
         const totalMachines = machinesPerRow * machinesPerColumn;
-        if(Number(width) >= 4 || Number(length) >= 4){
+        if(Number(width) >= 3 || Number(length) >= 4){
         setInvalidNext(true);
         }
         setMachineCount(totalMachines);
     };
+
+    const handleVisualize = () => {
+        const widthNum = parseInt(width);
+        const lengthNum = parseInt(length);
+        let selectedImage: string | string[] = '';
+
+        if (widthNum > 3 && lengthNum < 5) {
+            selectedImage = [Plant4x4, Plant4x4_2];
+        } else if (widthNum > 2 && lengthNum < 5) {
+            selectedImage = Plant3x4;
+        } else if (widthNum > 4 && lengthNum < 7) {
+            selectedImage = Plant5x6;
+        } else {
+            selectedImage = Plant5x6;
+        }
+
+        setImageSrc(selectedImage);
+        setShowImageModal(true);
+    };
+
+    const handleCloseImageModal = () => {
+        setShowImageModal(false);
+    };
+
 
     return (
         <div>
@@ -135,9 +166,15 @@ const Inauguration_2: React.FC = () => {
                                             </div>
                                         </div>
                                         <h5 className="mt-4">*Dimensão mínima de 4 (largura) x 4 (comprimento)</h5>
-                                        <button className={`btn mt-4 ${!invalidWeight ? 'invalidWeight' : 'validWeight'}`} onClick={handleCalculate}>
+                                        <div className='d-flex justify-content-center align-items-center flex-column'>
+                                        <button disabled={!invalidWeight} className={`btn mt-4 ${!invalidWeight ? 'invalidWeight' : 'validWeight'}`} onClick={handleCalculate}>
                                             Calcular
                                         </button>
+
+                                        <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
+                                            Visualizar modelo
+                                        </button>
+                                        </div>
 
                                         <div className="mt-4 container-quantity p-3 text-center">
                                             <h5>
@@ -163,6 +200,7 @@ const Inauguration_2: React.FC = () => {
                 <Modal show={showModal} handleClose={handleCloseModal}>
                 <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
             </Modal>
+            <ImageModal show={showImageModal} handleClose={handleCloseImageModal} imageSrc={imageSrc} />
             </main>
         </div>
     );

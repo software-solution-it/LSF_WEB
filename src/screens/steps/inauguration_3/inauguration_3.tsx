@@ -7,7 +7,7 @@ import userService from '../../../services/userService';
 const Inauguration_3: React.FC = () => {
     const navigate = useNavigate();
     
-    const [comboCount, setComboCount] = useState<any>(0);
+    const [comboCount, setComboCount] = useState<any>(4);
 
 
     const handleNext = () => {
@@ -20,7 +20,7 @@ const Inauguration_3: React.FC = () => {
     };
 
     const decreaseCount = (count: number) => {
-        if (count > 0) {
+        if (count > 4) {
             setComboCount(count - 1);
         }
     };

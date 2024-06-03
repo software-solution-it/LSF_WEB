@@ -26,6 +26,31 @@
     padding: 0 40px !important;
 }
 
+.no-screenshot {
+    position: relative;
+}
+
+.no-screenshot::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+}
+
+.modal-content-image {
+    position: relative;
+    background-color: #fff;
+    border-radius: 0.3rem;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    max-width: 750px;
+    font-weight: 500 !important;
+    padding: 0 40px !important;
+}
+
 .modal-header {
     display: flex;
     justify-content: center;
@@ -36,7 +61,8 @@
 .modal-title {
     margin: 0;
     font-weight: bold !important;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .close {

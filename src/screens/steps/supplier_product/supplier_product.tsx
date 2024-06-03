@@ -59,15 +59,6 @@ const Supplier_Product: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        if(currentUser?.user?.receiptConfirmed == 0){
-            navigate('/step/waiting_aproval');
-        }else if(currentUser?.user.receiptConfirmed == 1){
-            navigate('/step/supplier_document');
-        }else if(   currentUser?.user.receiptConfirmed == 2){
-            navigate('/step/technician');
-        }
-        }, [currentUser]);
 
 
 
