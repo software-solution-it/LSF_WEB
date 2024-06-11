@@ -1,0 +1,30 @@
+export interface Mandala {
+    id: number;
+    chooseLocation: boolean;
+    closeContract: boolean;
+    plumbingElectrical: boolean;
+    drywall: boolean;
+    mdfOptional: boolean;
+    glassWall: boolean;
+    machines: boolean;
+    automatedComputers: boolean;
+    cardMachine: boolean;
+    platesDispensers: boolean;
+    chemicals: boolean;
+    brandRegistrationOptional: boolean;
+    stickers: boolean;
+    environmentDecoration: boolean;
+    sofaTableBasket: boolean;
+    facade: boolean;
+    airConditioning: boolean;
+    internet: boolean;
+    paperHolder: boolean;
+    alcoholSprayer: boolean;
+    clothesFoldersOptional: boolean;
+    camera: boolean;
+    airSensor: boolean;
+    machineAlarm: boolean;
+    wifiSocketAdapter: boolean;
+    doorLock: boolean;
+    userId: number;
+}

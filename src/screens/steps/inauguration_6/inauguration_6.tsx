@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './inauguration_6.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
-import { CurrentUser } from '../../../interface/userInterface';
+import { User } from '../../../interface/userInterface';
 
 const Inauguration_6: React.FC = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
 
     const handleNext = () => {
-        navigate('/step/supplier');
+        navigate('/step/supplier', { state: { projectId } });
     };
 
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     useEffect(() => {
         const fetchData = async () => {
             try{

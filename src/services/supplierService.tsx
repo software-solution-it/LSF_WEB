@@ -4,7 +4,7 @@ const getSupplierProductByType = async (type: number) => {
     try {
         const token = localStorage.getItem('accessToken');
         
-        const response = await axios.get(`/api/api/Supplier/SupplierProducts?supplierType=${encodeURIComponent(type)}`, {
+        const response = await axios.get(`/api/Supplier/SupplierProducts?supplierType=${encodeURIComponent(type)}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -19,7 +19,7 @@ const getSuppliersByType = async (type: number) => {
     try {
         const token = localStorage.getItem('accessToken');
         
-        const response = await axios.get(`/api/api/Supplier/SupplierType?supplierType=${encodeURIComponent(type)}`, {
+        const response = await axios.get(`/api/Supplier/SupplierType?supplierType=${encodeURIComponent(type)}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -30,10 +30,10 @@ const getSuppliersByType = async (type: number) => {
     }
 };
 
-const createUserSupplier = async (supplierType:any) => {
+const createUserSupplier = async (supplierType:any, projectId:any) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Supplier/UserSupplier?supplierId=${encodeURIComponent(supplierType)}`, {}, {
+        const response = await axios.post(`/api/Supplier/UserSupplier?supplierId=${encodeURIComponent(supplierType)}&projectId=${projectId}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -45,11 +45,11 @@ const createUserSupplier = async (supplierType:any) => {
     }
 };
 
-const createUserInauguration = async () => {
+const createUserInauguration = async (projectId:any) => {
     try {
         const name = "Minha Lavanderia"
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Inauguration?name=${encodeURIComponent(name)}`, {}, {
+        const response = await axios.put(`/api/Project/PutProject?name=${encodeURIComponent(name)}&projectId=${projectId}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -61,10 +61,10 @@ const createUserInauguration = async () => {
     }
 };
 
-const createUserTech = async (supplierType:any) => {
+const createUserTech = async (supplierType:any, projectId:any) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/api/Technician?techId=${encodeURIComponent(supplierType)}`, {}, {
+        const response = await axios.post(`/api/Technician?techId=${encodeURIComponent(supplierType)}&projectId=${projectId}`, {}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

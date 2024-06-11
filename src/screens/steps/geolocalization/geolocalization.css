@@ -7,6 +7,14 @@
     overflow: hidden;
 }
 
+.welcome-section-electric{
+    padding: 20px;
+    box-shadow: 10px 14px 8px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+
 .map-container {
     height: 400px;
     width: 100%;

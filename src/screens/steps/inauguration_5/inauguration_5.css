@@ -81,10 +81,29 @@
 }
 
 
-.machine-image{
-    width: 200px !important;
-    height: 230px !important;
+.machine-image {
+  width: 100%;
+  height: auto;
+  max-width: 420px;
 }
+
+.machine-image-lg {
+  width: 100%;
+  height: auto;
+  min-width: 420px;
+  object-fit: cover;
+  object-position: center;
+  clip-path: inset(0 100px);
+}
+
+.machine-image-speed-queen {
+  width: 100%;
+  height: auto;
+  max-width: 220px;
+  /* Adicione outros estilos específicos, se necessário */
+}
+
+  
 
 .carousel-control-next,
 .carousel-control-prev /*, .carousel-indicators */ {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './supplier_document.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 
 const Supplier_Document: React.FC = () => {
@@ -8,6 +8,8 @@ const Supplier_Document: React.FC = () => {
     const [nextEnabled, setNextEnabled] = useState(false);
     const [showError, setShowError] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -19,7 +21,7 @@ const Supplier_Document: React.FC = () => {
 
     const handleNext = () => {
         if (selectedFile) {
-            navigate('/step/waiting_aproval');
+            navigate('/step/waiting_aproval', { state: { projectId } });
         } else {
             setShowError(true);
         }

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './laundry_inauguration.css'; // Importando o arquivo CSS
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import supplierService from '../../../services/supplierService';
 
 const Laundry_Inauguration: React.FC = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const { projectId } = location.state || {};
     const handleNext = async () => {
-        const response = await supplierService.createUserInauguration();
+        const response = await supplierService.createUserInauguration(projectId);
     
         if (response) {
             navigate('/home');

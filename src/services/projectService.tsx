@@ -1,18 +1,17 @@
 import axios from "axios";
 
-
-const createPoint = async (point: PointData) => {
+const getProjectById = async (id:number) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/Point?projectId=${point.projectId}`, point , {
+        const response = await axios.get(`/api/Project/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return response.data;  
+        return response.data;
     } catch (error) {
         console.error(error);
     }
 };
 
-export default {createPoint};
+export default {getProjectById};

@@ -2,19 +2,22 @@ import React, { useEffect, useState } from 'react';
 import './inauguration.css';
 import { useNavigate } from 'react-router-dom';
 import Menu from '../../components/Menu';
-import { CurrentUser } from '../../interface/userInterface';
-import userService from '../../services/userService';
+import projectService from '../../services/projectService';
+import { User } from '../../interface/userInterface';
+import { useLocation } from 'react-router-dom';
 
 const Inauguration: React.FC = () => {
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentProject, setCurrentProject] = useState<any>(null);
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await userService.getCurrentUser();
+                const response = await projectService.getProjectById(projectId);
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentProject(response);
                 } else {
                     navigate('/login');
                 }
@@ -28,23 +31,23 @@ const Inauguration: React.FC = () => {
 
     const handleNext = (type: number) => {
         if (type === 1) {
-            navigate('/step/geolocalization');
+            navigate('/step/geolocalization' , { state: { projectId } });
         } else if (type === 2) {
-            navigate('/step/inauguration_2');
+            navigate('/step/inauguration_2' , { state: { projectId } });
         } else if (type === 3) {
-            if (currentUser?.supplier == null) {
-                navigate('/step/inauguration_6');
-            } else if (currentUser?.supplier.supplierType === 1) {
-                navigate('/step/board');
-            } else if (currentUser?.supplier.supplierType === 2) {
-                navigate('/step/product');
-            } else if (currentUser?.supplier.supplierType === 3) {
-                navigate('/step/payment');
-            } else if (currentUser?.supplier.supplierType === 4) {
-                navigate('/step/technician');
+            if (currentProject?.suppliers.length == 0) {
+                navigate('/step/inauguration_6' , { state: { projectId } });
+            } else if (currentProject?.suppliers.length == 1) {
+                navigate('/step/board' , { state: { projectId } });
+            } else if (currentProject?.suppliers.length == 2) {
+                navigate('/step/product' , { state: { projectId } });
+            } else if (currentProject?.suppliers.length == 3) {
+                navigate('/step/payment' , { state: { projectId } });
+            } else if (currentProject?.suppliers.length == 4) {
+                navigate('/step/technician' , { state: { projectId } });
             }
         } else if (type === 4) {
-            navigate('/step/laundry_inauguration');
+            navigate('/step/laundry_inauguration', { state: { projectId }});
         }
     };
 
@@ -87,31 +90,31 @@ const Inauguration: React.FC = () => {
         );
     };
 
-    if (!currentUser) return null;
+    if (!currentProject) return null;
 
     const getCurrentAndNextSteps = () => {
         let currentStep = null;
         let nextSteps:any = [];
 
-        if (currentUser.geolocation === null) {
+        if (currentProject?.geolocation === null) {
             currentStep = renderStep(1, 'Geolocalização', false, false);
             nextSteps = [
                 renderStep(2, 'Adequa Ponto', true, false),
                 renderStep(3, 'Aquisição', true, false),
                 renderStep(4, 'Inauguração', true, false)
             ];
-        } else if (currentUser.point === null) {
+        } else if (currentProject?.point === null) {
             currentStep = renderStep(2, 'Adequa Ponto', false, false);
             nextSteps = [
                 renderStep(3, 'Aquisição', true, false),
                 renderStep(4, 'Inauguração', true, false)
             ];
-        } else if (currentUser.technician === null) {
+        } else if (currentProject?.technician === null) {
             currentStep = renderStep(3, 'Aquisição', false, false);
             nextSteps = [
                 renderStep(4, 'Inauguração', true, false)
             ];
-        } else if (currentUser.inauguration === null) {
+        } else if (currentProject?.name === null) {
             currentStep = renderStep(4, 'Inauguração', false, false);
         }
 
@@ -145,16 +148,16 @@ const Inauguration: React.FC = () => {
 
                         <div className="col-md-4">
                             <span className='fw-bold'>Etapas concluídas:</span>
-                            {(currentUser.geolocation != null) &&
+                            {(currentProject.geolocation != null) &&
                                 renderStep(1, 'Geolocalização', false, true)
                             }
-                            {(currentUser.point != null) &&
+                            {(currentProject.point != null) &&
                                 renderStep(2, 'Adequa Ponto', false, true)
                             }
-                            {(currentUser.supplier != null) &&
+                            {(currentProject?.technician != null) &&
                                 renderStep(3, 'Aquisição', false, true)
                             }
-                            {(currentUser.inauguration != null) &&
+                            {(currentProject?.name != null) &&
                                 renderStep(4, 'Inauguração', false, true)
                             }
                         </div>

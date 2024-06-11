@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './inauguration_5.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 
 const Inauguration_5: React.FC = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const { projectId } = location.state || {};
+    
     const handleProduct = (type:string) => {
         handleNext(type);
     };
 
     const handleNext = (type:any) => {
         localStorage.setItem('dryerType', type );
-        navigate('/step/inauguration_6');
+        navigate('/step/inauguration_6', { state: { projectId } });
     };
 
     useEffect(() => {
@@ -36,8 +38,8 @@ const Inauguration_5: React.FC = () => {
     const carouselData = {
             "carousel": [
               {
-                "title": "SECADOR DRYLIGHT",
-                "image": "https://maltec.com.br/wp-content/uploads/2023/11/DL-28-STANDARD-e1700485035638.png",
+                "title": "Secadora de Roupas Elétrica Speed Queen 10,5 Kg",
+                "image": "https://cdn.vnda.com.br/950x/exseletrodomesticos/2021/05/03/16_58_25_10_secadora_de_roupas_branca_eletrica_10_5_kg_abertura_frontal_adee9_speed_queen_3544_3_20190122120618.jpg?v=1620071905",
                 "description": "Estrutura metálica com pintura eletrostática a pó. Cesto em aço inoxidável. Possui inversor de frequência que possibilita o ajuste de velocidade e reversão do cesto, permitindo uma secagem mais eficiente e igualitária entre os tecidos...",
                 "product_id": "17"
               },

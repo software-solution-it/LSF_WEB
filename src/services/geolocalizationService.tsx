@@ -3,7 +3,7 @@ import axios from 'axios';
 const createGeolocation = async (geolocation: GeolocationData) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post('/api/api/Geolocation', geolocation , {
+        const response = await axios.post(`/api/Geolocation?projectId=${geolocation.projectId}`, geolocation , {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

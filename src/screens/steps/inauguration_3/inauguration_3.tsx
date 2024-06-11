@@ -1,28 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import './inauguration_3.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
+import ImageModal from '../../../components/ImageModal';
+import { Document, Page } from 'react-pdf';
+import { User } from '../../../interface/userInterface';
+import PdfModal from '../../../components/PdfModal';
 
 const Inauguration_3: React.FC = () => {
     const navigate = useNavigate();
-    
+    const location = useLocation();
+
+    const { projectId } = location.state || {};
     const [comboCount, setComboCount] = useState<any>(4);
+    const [currentUser, setCurrentUser] = useState<any | null>(null);
+    const [showImageModal, setShowImageModal] = useState(false); 
+    const [imageSrc, setImageSrc] = useState<string | string[]>(''); // New state for image source
 
 
     const handleNext = () => {
         localStorage.setItem('machineQuantity', comboCount.toString());
-        navigate('/step/inauguration_4');
+        if((comboCount > 1 && comboCount < 4) && currentUser?.user?.projects[0].electric?.network === 'Bifasica'){
+            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaBif3.pdf');
+        }else if((comboCount > 1 && comboCount < 4) && currentUser?.user?.projects[0].electric?.network === 'Trifasica'){
+            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif3.pdf');
+        }else if((comboCount > 2 && comboCount < 5) && currentUser?.user?.projects[0].electric?.network === 'Trifasica'){
+            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif4.pdf');
+        }else{
+            return navigate('/step/inauguration_4', { state: { projectId } });
+        }
+        return setShowImageModal(true);
     };
 
     const increaseCount = (count: number) => {
+        if(comboCount < 5){
         setComboCount(count + 1);
+        }
     };
 
     const decreaseCount = (count: number) => {
-        if (count > 4) {
+        if (count > 1) {
             setComboCount(count - 1);
         }
+    };
+
+    const handleCloseImageModal = () => {
+        setShowImageModal(false);
+        navigate('/step/inauguration_4', { state: { projectId } });
     };
 
     useEffect(() => {
@@ -30,6 +55,7 @@ const Inauguration_3: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
+                    setCurrentUser(response)
                 } else {
                     navigate('/login');
                 }
@@ -83,6 +109,7 @@ const Inauguration_3: React.FC = () => {
                     </div>
                 </div>
             </main>
+            <PdfModal show={showImageModal} handleClose={handleCloseImageModal} imageSrc={imageSrc} />
         </div>
     );
 };

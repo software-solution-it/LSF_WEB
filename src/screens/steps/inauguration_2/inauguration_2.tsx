@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './inauguration_2.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
-import { CurrentUser } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import pointService from '../../../services/pointService';
 import Modal from '../../../components/Modal';
@@ -11,21 +10,24 @@ import Plant4x4 from '../../../assets/plant/4x4.png';
 import Plant4x4_2 from '../../../assets/plant/4x4_2.png';
 import Plant5x6 from '../../../assets/plant/5x6.png';
 import ImageModal from '../../../components/ImageModal';
+import { User } from '../../../interface/userInterface';
 
 interface PointData {
     width: string;
     length: string;
+    projectId:any
 }
 
 const Inauguration_2: React.FC = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const { projectId } = location.state || {};
     const [width, setWidth] = useState('');
     const [length, setLength] = useState('');
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [showModal, setShowModal] = useState(false);
     const [showImageModal, setShowImageModal] = useState(false); 
-    const [imageSrc, setImageSrc] = useState<string | string[]>(''); // New state for image source
+    const [imageSrc, setImageSrc] = useState<string | string[]>('');
     const [machineCount, setMachineCount] = useState(0);
     const [invalidWeight, setInvalidWeight] = useState(false);
     const [invalidNext, setInvalidNext] = useState(false);
@@ -35,7 +37,7 @@ const Inauguration_2: React.FC = () => {
             try{
             const response = await userService.getCurrentUser();
             if (response) {
-                setCurrentUser(response);
+                setCurrentUser(response.user);
             }else{
                 navigate('/login');
             }
@@ -64,13 +66,12 @@ const Inauguration_2: React.FC = () => {
     const handleNext = () => {
         if (currentUser) {
             const fetchData = async () => {
-                const pointData: PointData = { width, length };
+                const pointData: PointData = { width, length, projectId: projectId };
                 const response = await pointService.createPoint(pointData);
                 if (response) {
                     setShowModal(true);
                 }
             };
-
             fetchData();
         }
     };
@@ -80,7 +81,7 @@ const Inauguration_2: React.FC = () => {
         if(parameter === 'home'){
             navigate('/home');
         }else{
-            navigate('/step/inauguration_3');
+            navigate('/step/inauguration_3', { state: { projectId } });
         }
     };
 
@@ -152,7 +153,7 @@ const Inauguration_2: React.FC = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div>
+                                            <div className='ms-4'>
                                                 <h5>Comprimento</h5>
                                                 <div className="input-container">
                                                     <input
@@ -171,10 +172,10 @@ const Inauguration_2: React.FC = () => {
                                             Calcular
                                         </button>
 
-                                      {/*  <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
+                                       <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
                                             Visualizar modelo
                                         </button>
-                                        */} 
+                                        
                                         </div>
 
                                         <div className="mt-4 container-quantity p-3 text-center">

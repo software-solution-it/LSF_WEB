@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './supplier_payment.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
-import { CurrentUser } from '../../../interface/userInterface';
+import { User } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
 
@@ -16,19 +16,21 @@ const Supplier_Payment: React.FC = () => {
     const [supplier, setSupplier] = useState<any>([]);
     const [comboSelectedId, setComboSelectedId] = useState<any>();
     const [checkedState, setCheckedState] = useState({ contact: false, purchase: false });
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
     const handleNext = async () => {
-        const response = await supplierService.createUserSupplier(comboSelectedId);
+        const response = await supplierService.createUserSupplier(comboSelectedId, projectId);
     
         if (response) {
-            navigate('/step/technician');
+            navigate('/step/technician', { state: { projectId } });
         }
 
     };
 
     
 
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     useEffect(() => {
         const fetchData = async () => {
             try{

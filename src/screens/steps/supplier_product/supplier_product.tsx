@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './supplier_product.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
-import { CurrentUser } from '../../../interface/userInterface';
+import { User } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
 
@@ -16,12 +16,14 @@ const Supplier_Product: React.FC = () => {
     const [checkedState, setCheckedState] = useState({ contact: false, purchase: false });
     const [product, setProduct] = useState<any>([]);
     const [supplier, setSupplier] = useState<any>([]);
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [selectedProducts, setSelectedProducts] = useState<any>({
         detergent: null,
         softener: null,
         stainRemover: null
     });
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
     useEffect(() => {
         const fetchData = async () => {
@@ -43,9 +45,9 @@ const Supplier_Product: React.FC = () => {
     }, []);
 
     const handleNext = async () => {
-        const response = await supplierService.createUserSupplier(3);
+        const response = await supplierService.createUserSupplier(3, projectId);
         if (response) {
-            navigate('/step/payment');
+            navigate('/step/payment', { state: { projectId } });
         }
     };
 
@@ -92,7 +94,15 @@ const Supplier_Product: React.FC = () => {
     const handleWhatsappClick = () => {
         const supw = supplier[0];
         const phoneNumber = supw.phone;
-        const whatsappLink = `https://wa.me/${phoneNumber}`;
+        const detergent = product.find((p: any) => p.id.toString() === selectedProducts.detergent)?.productName;
+        const softener = product.find((p: any) => p.id.toString() === selectedProducts.softener)?.productName;
+        const stainRemover = product.find((p: any) => p.id.toString() === selectedProducts.stainRemover)?.productName;
+        const message = `Olá, gostaria de falar sobre a compra dos produtos para minha lavanderia:
+- Detergente: ${detergent}
+- Amaciante: ${softener}
+- Tira-manchas: ${stainRemover}`;
+        
+        const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, "_blank");
         setWhatsappOpen(true);
     };

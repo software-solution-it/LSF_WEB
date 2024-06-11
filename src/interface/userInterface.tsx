@@ -1,19 +1,59 @@
-export interface User {
-    createdAt: string;
-    email: string;
+export interface Point {
     id: number;
-    name: string;
-    phone: string;
-    receiptConfirmed: any; // Ajuste o tipo conforme necessário
-    userImage: any; // Ajuste o tipo conforme necessário
-    userName: string;
+    width: string;
+    length: string;
+    active: boolean;
+    createdAt:any
 }
 
-export interface CurrentUser {
+export interface Technician {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    city: string;
+    country: string;
+    active: boolean;
+    createdAt:any
+}
+
+export interface Electric {
+    id: number;
+    projectId: number;
+    voltage: string;
+    network: string;
+}
+
+export interface ProjectFile {
+    id: number;
+    fileName: string;
+    folder: string;
+    fileType: string;
+}
+
+export interface ProjectFiles {
+    confirmedReceipt: any; // Ajuste o tipo conforme necessário
+    receiptDeclinedReason: any; // Ajuste o tipo conforme necessário
+    recipe: ProjectFile | null;
+    hydraulicModel: ProjectFile | null;
+    electricModel: ProjectFile | null;
+    sketchModel: ProjectFile | null;
+}
+
+export interface Project {
+    id: number;
+    name: string;
     geolocation: any; // Ajuste o tipo conforme necessário
-    inauguration: any; // Ajuste o tipo conforme necessário
-    point: any; // Ajuste o tipo conforme necessário
-    supplier: any; // Ajuste o tipo conforme necessário
-    technician: any; // Ajuste o tipo conforme necessário
-    user: User;
+    point: Point | null;
+    suppliers: any[]; // Ajuste o tipo conforme necessário
+    technician: Technician | null;
+    electric: Electric | null;
+    projectFiles: ProjectFiles;
+}
+
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    projects: Project[];
 }

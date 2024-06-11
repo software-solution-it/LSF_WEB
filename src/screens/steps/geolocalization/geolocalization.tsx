@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './geolocalization.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
-import { CurrentUser } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import geolocalizationService from '../../../services/geolocalizationService';
 import Modal from '../../../components/Modal';
-
-/// <reference types="@types/google.maps" />
+import { User } from '../../../interface/userInterface';
 
 interface GeolocationData {
     latitude: number;
     longitude: number;
     address: string;
+    projectId: any;
 }
 
 const Geolocation: React.FC = () => {
+    const location = useLocation();
+    const { projectId } = location.state || {};
     const navigate = useNavigate();
 
     const [address, setAddress] = useState('');
@@ -26,7 +27,7 @@ const Geolocation: React.FC = () => {
     const [marker, setMarker] = useState<google.maps.Marker | null>(null);
     const [circle, setCircle] = useState<google.maps.Circle | null>(null);
 
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [geolocationData, setGeolocationData] = useState<GeolocationData | null>(null);
     const [showModal, setShowModal] = useState(false);
 
@@ -35,7 +36,7 @@ const Geolocation: React.FC = () => {
             try{
             const response = await userService.getCurrentUser();
             if (response) {
-                setCurrentUser(response);
+                setCurrentUser(response.user);
             }else{
                 navigate('/login');
             }
@@ -117,6 +118,7 @@ const Geolocation: React.FC = () => {
                         latitude: place.geometry.location.lat(),
                         longitude: place.geometry.location.lng(),
                         address: place.formatted_address || '',
+                        projectId: projectId
                     });
                 }
             });
@@ -147,9 +149,9 @@ const Geolocation: React.FC = () => {
     const handleCloseModal = (parameter:any) => {
         setShowModal(false);
         if(parameter === 'home'){
-            navigate('/home');
+            navigate('/home', { state: { projectId } });
         }else{
-            navigate('/step/inauguration');
+            navigate('/step/electric', { state: { projectId } });
         }
     };
 

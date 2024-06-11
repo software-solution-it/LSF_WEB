@@ -1,10 +1,13 @@
 import axios from "axios";
 
 
-const createTechnician = async (id:number) => {
+const createMandala = async (mandala: any) => {
     try {
-        const response = await axios.post('/api/Technician',{
-            techId: id
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.put('/api/mandala/update', mandala, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
         });
         return response.data;  
     } catch (error) {
@@ -13,10 +16,10 @@ const createTechnician = async (id:number) => {
 };
 
 
-const listTechnician = async () => {
+const listMandala = async () => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.get(`/api/Technician`, {
+        const response = await axios.get(`/api/mandala`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -27,4 +30,4 @@ const listTechnician = async () => {
     }
 };
 
-export default {createTechnician, listTechnician};
+export default {createMandala, listMandala};

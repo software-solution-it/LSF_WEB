@@ -19,6 +19,7 @@ import Supplier_Technician from './screens/steps/supplier_technician/supplier_te
 import Laundry_Inauguration from './screens/steps/laundry_inauguration/laundry_inauguration';
 import Supplier_Document from './screens/steps/supplier_document/supplier_document';
 import Waiting_Aproval from './screens/steps/waiting_aproval/waiting_aproval';
+import Electric from './screens/steps/electric/electric';
 function App() {
   return (
     <Router>
@@ -28,6 +29,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/inauguration" element={<Inauguration />} />
         <Route path="/step/geolocalization" element={<Geolocation />} />
+        <Route path="/step/electric" element={<Electric />} />
         <Route path="/step/inauguration" element={<StepInauguration />} />
         <Route path="/step/inauguration_2" element={<Inauguration_2 />} />
         <Route path="/step/inauguration_3" element={<Inauguration_3 />} />

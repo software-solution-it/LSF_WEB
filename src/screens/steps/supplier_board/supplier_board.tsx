@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './supplier_board.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
-import { CurrentUser } from '../../../interface/userInterface';
+import { User } from '../../../interface/userInterface';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
 
@@ -16,18 +16,21 @@ const Supplier_Board: React.FC = () => {
     const [showError, setShowError] = useState(false);
     const [checkedState, setCheckedState] = useState({ contact: false, purchase: false });
     const quantity = localStorage.getItem('machineQuantity');
+    const location = useLocation();
+    const { projectId } = location.state || {};
+    const dryer = localStorage.getItem('washerType');
     
     const handleNext = async () => {
     
-            const response = await supplierService.createUserSupplier(comboSelectedId);
+            const response = await supplierService.createUserSupplier(comboSelectedId,projectId);
     
             if (response) {
-                navigate('/step/product');
+                navigate('/step/product', { state: { projectId } });
             }
     };
 
     const [supplier, setSupplier] = useState<any>([]);
-    const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
     useEffect(() => {
         const fetchData = async () => {
             try{
@@ -88,7 +91,11 @@ const Supplier_Board: React.FC = () => {
     const handleWhatsappClick = () => {
         const supw = supplier.find((s: any) => s.id === Number(comboSelectedId));
         const phoneNumber = supw.phone;
-        const whatsappLink = `https://wa.me/${phoneNumber}`;
+        const message = `Olá, gostaria de falar sobre a compra das placas para meu conjunto de máquinas:
+- Conjunto: ${dryer == '9' ? 'Speed Queen STACK Lavadora/Secadora 10kg/10,5kg' : 'Speed Queen STACK Lavadora/Secadora 10kg/10,5kg'}
+- Quantidade: ${quantity} conjuntos de máquinas.`;
+        
+                const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, "_blank");
         setWhatsappOpen(true);
     };
@@ -109,7 +116,7 @@ const Supplier_Board: React.FC = () => {
                                     <li>
                                         <div className='mb-4 text-center'>
                                             <h2 className='p-0 mb-3'>Placa</h2>
-                                            <p>Agora você vai selecionar uma opção de fornecedor de placas de acordo com a lista disponível abaixo, faremos o envio das informações da máquina para ele.</p>
+                                            <p>Agora você vai selecionar uma opção de fornecedor de placas de acordo com o fornecedor mais próximo de você, faremos o envio das informações da máquina para ele.</p>
                                         </div>
 
 

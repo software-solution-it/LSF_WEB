@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './inauguration.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 
 const Inauguration: React.FC = () => {
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const { projectId } = location.state || {};
 
 
     const handleNext = () => {
-        navigate('/step/inauguration_2');
+        navigate('/step/electric', { state: { projectId } });
     };
 
     useEffect(() => {
