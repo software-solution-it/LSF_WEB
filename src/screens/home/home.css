@@ -222,6 +222,16 @@ ul{
     overflow: hidden;
 }
 
+.project-info-mandala {
+    position: relative;
+    padding: 20px;
+    box-shadow: 0 16px 8px rgba(0, 0, 0, 0.2) !important;
+    min-width: 600px;
+    cursor: pointer;
+    background-color: white;
+    overflow: hidden;
+}
+
 .project-info::before,
 .project-info::after,
 .project-info span::before,

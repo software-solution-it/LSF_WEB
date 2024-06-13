@@ -112,7 +112,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 {currentUser.projects.map((project, index) => (
-                    <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info mb-5">
+                    <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-5">
                         {checkListMandala ? (
                             <div>
                                 <h2 className="col">CHECK LIST MANDALA</h2>
@@ -298,7 +298,7 @@ const Home: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <i className={`${project.suppliers ? 'text-success fas fa-check-square' : project.point ? 'fa-solid fa-arrow-right' : 'text-danger fas fa-lock'}`}></i>
+                                                <i className={`${project?.technician ? 'text-success fas fa-check-square' : project.point ? 'fa-solid fa-arrow-right' : 'text-danger fas fa-lock'}`}></i>
                                             </div>
                                         </div>
                                     </li>
@@ -312,7 +312,7 @@ const Home: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div>
-                                                <i className={`${project.technician ? 'text-success fas fa-check-square' : 'text-danger fas fa-lock'}`}></i>
+                                                <i className={`${project.name ? 'text-success fas fa-check-square' : 'text-danger fas fa-lock'}`}></i>
                                             </div>
                                         </div>
                                     </li>
