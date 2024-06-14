@@ -10,7 +10,6 @@ const Menu: React.FC = () => {
 
     const handleMenuItemClick = (menuItem: string) => {
         setActiveMenuItem(menuItem);
-        // Você pode adicionar navegação para cada item do menu, se necessário
         if (menuItem === 'Sair') {
             localStorage.removeItem('accessToken');
             navigate('/login');
@@ -70,7 +69,7 @@ const Menu: React.FC = () => {
                     */}
                     <li>
                         <a
-                            href="/inauguration"
+                            href="/projects"
                             className={activeMenuItem === 'Inauguração' ? 'active' : ''}
                             onClick={() => handleMenuItemClick('Inauguração')}
                         >
