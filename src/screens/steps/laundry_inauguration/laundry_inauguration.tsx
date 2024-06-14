@@ -47,7 +47,7 @@ const Laundry_Inauguration: React.FC = () => {
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-8">
+                        <div className="col-12 col-md-8" style={{marginTop:80}}>
                             <div className="my-5 mb-3">
                                 <ul className='p-0'>
                                     <li>

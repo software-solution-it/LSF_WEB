@@ -161,12 +161,12 @@ const Geolocation: React.FC = () => {
             <main>
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
-                        <div className="col-md-12">
+                        <div className="col-md-12" style={{marginTop:80}}>
                             <div className="welcome-section-geolocalization mt-4">
                                 <ul>
                                     <li>
                                         <div className="mb-4">
-                                            <h5>Geolocalização</h5>
+                                            <h3 className='text-center'>Geolocalização</h3>
                                         </div>
                                         <div className="w-100 rounded">
                                             <p className="py-1 mx-2 text-center">

@@ -9,7 +9,6 @@ import Geolocation from './screens/steps/geolocalization/geolocalization';
 import Inauguration_3 from './screens/steps/inauguration_3/inauguration_3';
 import Inauguration_4 from './screens/steps/inauguration_4/inauguration_4';
 import Inauguration_2 from './screens/steps/inauguration_2/inauguration_2';
-import Inauguration_5 from './screens/steps/inauguration_5/inauguration_5';
 import Inauguration_6 from './screens/steps/inauguration_6/inauguration_6';
 import Supplier from './screens/steps/supplier/supplier';
 import Supplier_Board from './screens/steps/supplier_board/supplier_board';

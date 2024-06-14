@@ -57,15 +57,15 @@ const Inauguration_4: React.FC = () => {
 <div>
   <Menu />
   <main className="d-flex justify-content-center align-items-center">
-    <div style={{width:'420px'}}  className="d-flex flex-column align-items-center">
+    <div style={{width:'420px', marginTop:80}}  className="d-flex flex-column align-items-center">
       <div className="d-flex justify-content-center align-items-center py-4">
         <div className="welcome-section-machine">
           <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
             <div className="carousel-inner">
               {carouselData.carousel.map((item, index) => (
                 <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={item.product_id}>
-                  <div className="d-flex justify-content-center align-items-center flex-column px-3">
-                    <h2 className="mt-5 text-center">{item.title}</h2>
+                  <div className="d-flex justify-content-center align-items-center flex-column">
+                    <h2 className="mt-5 text-center" style={{width:300}}>{item.title}</h2>
                     <img src={item.image}  className={`machine-image my-5 ${item.product_id === "15" ? 'machine-image-lg' : 'machine-image-speed-queen'}`}  />
                     <div className="px-3 scroll-container px-3">
                       <h4 className="mt-4">Características:</h4>

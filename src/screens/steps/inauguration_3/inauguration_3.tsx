@@ -28,7 +28,7 @@ const Inauguration_3: React.FC = () => {
         }else if((comboCount > 2 && comboCount < 5) && currentUser?.user?.projects[0].electric?.network === 'Trifasica'){
             setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif4.pdf');
         }else{
-            return navigate('/step/inauguration_4', { state: { projectId } });
+            return navigate('/step/set', { state: { projectId } });
         }
         return setShowImageModal(true);
     };
@@ -73,7 +73,7 @@ const Inauguration_3: React.FC = () => {
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-8">
+                        <div className="col-12 col-md-8"  style={{marginTop:80}}>
                             <div className="welcome-section-quantity mt-4">
                                 <ul className='p-0'>
                                         <div className='mb-4 text-center'>

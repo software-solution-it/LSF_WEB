@@ -9,6 +9,9 @@ ul{
 
 .header {
     padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
     background-color: #00014E;;
     color: white;
     height: 70px;
@@ -103,10 +106,10 @@ ul{
 
 /* Styles for the menu */
 .menu {
-    position: absolute;
-    top: 999;
-    left: -250px;
+    position: fixed;
     width: 250px;
+    margin-top: 70px;
+    left: -250px;
     z-index: 999;
     height: 100%;
     background-color: #00014E;;
@@ -115,7 +118,7 @@ ul{
 }
 
 .menu.open {
-    left: 0;
+    left: 0px;
 }
 
 .menu ul {

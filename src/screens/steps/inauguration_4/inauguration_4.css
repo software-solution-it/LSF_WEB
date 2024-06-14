@@ -120,3 +120,124 @@
 .carousel-indicators li {
     color: gray !important; /* Cor das bolinhas inativas */
 }
+
+
+
+.recommendation {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.machine-selection {
+    display: flex;
+    flex-direction: column;
+}
+
+.machine-option {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.machine-option label {
+    margin-left: 0.5rem;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.quantity-control button {
+    background-color: #ddd;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.quantity-control span {
+    margin: 0 1rem;
+    font-size: 1.2rem;
+}
+
+.scroll-container {
+    width: 450px;
+    padding: 0 20px;
+    max-height: 200px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
+
+/* Estilizando a barra de rolagem */
+.scroll-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Cor do fundo da barra de rolagem */
+.scroll-container::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+/* Cor do polegar da barra de rolagem */
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: #00014E;; /* Cor azul */
+    border-radius: 10px;
+    border: 3px solid #f8f9fa;
+}
+
+.scroll-text {
+    margin: 0;
+}
+
+.btn-request-confirm-machine:hover {
+    background-color: rgba(6, 106, 171, 1) !important;
+    transition: all 0.5s;
+    color: white !important;
+}
+
+
+.btn-request-confirm-machine {
+    border: 2px solid rgba(6, 106, 171, 1) !important;;
+}
+
+
+.machine-image {
+  width: 100%;
+  height: auto;
+  max-width: 420px;
+}
+
+.machine-image-lg {
+  width: 100%;
+  height: auto;
+  min-width: 420px;
+  object-fit: cover;
+  object-position: center;
+  clip-path: inset(0 100px);
+}
+
+.machine-image-speed-queen {
+  width: 100%;
+  height: auto;
+  max-width: 220px;
+  /* Adicione outros estilos específicos, se necessário */
+}
+
+  
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}
+
+/* CSS Personalizado para os indicadores */
+.carousel-indicators .active {
+    color: black !important; /* Cor da bolinha ativa */
+}
+
+.carousel-indicators li {
+    color: gray !important; /* Cor das bolinhas inativas */
+}

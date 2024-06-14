@@ -97,8 +97,8 @@ const Home: React.FC = () => {
             <Menu />
             {currentUser?.id ? 
             <main className="main-content">
-                <div className="row welcome-section">
-                    <div className="col mt-3 mt-5">
+                <div className="row welcome-section" style={{marginTop:100}}>
+                    <div className="col">
                         <h1>Olá, {currentUser?.name}</h1>
                         <p>Seja bem-vindo ao portal LSF</p>
                     </div>

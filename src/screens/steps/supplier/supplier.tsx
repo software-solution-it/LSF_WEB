@@ -116,7 +116,7 @@ const Suplier: React.FC = () => {
                 <main>
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-md-8">
+                            <div className="col-12 col-md-8" style={{marginTop:80}}>
                                 <div className="welcome-section-quantity my-5 mb-3">
                                     <ul>
                                         <li>

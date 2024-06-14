@@ -126,11 +126,11 @@ const Inauguration: React.FC = () => {
     return (
         <div>
             <Menu />
-            <main>
+            <main className=''>
                 <div className="container">
                     <div className="row">
-                        <div className="col-12 mt-5">
-                            <h3 className="m-0">Minha Lavanderia</h3>
+                        <div className="col-12" style={{marginTop:100}}>
+                            <h3>Minha Lavanderia</h3>
                             <span>Projeto atual</span>
                         </div>
                     </div>
