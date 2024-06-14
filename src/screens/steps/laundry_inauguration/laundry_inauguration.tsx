@@ -43,7 +43,7 @@ const Laundry_Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu />
+            <Menu user={null} projectId={projectId}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

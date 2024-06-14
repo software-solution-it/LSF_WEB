@@ -3,9 +3,9 @@ import './home.css';
 import { useNavigate } from 'react-router-dom';
 import Menu from '../../components/Menu';
 import userService from '../../services/userService';
-import mandalaService from '../../services/mandalaService'; // Certifique-se de que este serviço está importado corretamente
+import mandalaService from '../../services/mandalaService';
 import { User } from '../../interface/userInterface';
-import { Mandala } from '../../interface/mandalaInterface'; // Certifique-se de que a interface Mandala está importada corretamente
+import { Mandala } from '../../interface/mandalaInterface';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -94,7 +94,7 @@ const Home: React.FC = () => {
 
     return (
         <div>
-            <Menu />
+            <Menu user={currentUser} projectId={null}/>
             {currentUser?.id ? 
             <main className="main-content">
                 <div className="row welcome-section" style={{marginTop:100}}>

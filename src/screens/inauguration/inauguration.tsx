@@ -125,7 +125,7 @@ const Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu />
+            <Menu user={null} projectId={projectId}/>
             <main className=''>
                 <div className="container">
                     <div className="row">

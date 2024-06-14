@@ -111,7 +111,7 @@ const Suplier: React.FC = () => {
 
     return (
         <div>
-            <Menu />
+            <Menu user={null} projectId={projectId}/>
             {supplier?.length > 0 ?
                 <main>
                     <div className="container">

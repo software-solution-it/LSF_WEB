@@ -55,7 +55,7 @@ const Inauguration_4: React.FC = () => {
 
     return (
 <div>
-  <Menu />
+<Menu user={null} projectId={projectId}/>
   <main className="d-flex justify-content-center align-items-center">
     <div style={{width:'420px', marginTop:80}}  className="d-flex flex-column align-items-center">
       <div className="d-flex justify-content-center align-items-center py-4">

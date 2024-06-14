@@ -110,7 +110,7 @@ const Supplier_Product: React.FC = () => {
 
     return (
         <div>
-            <Menu />
+            <Menu user={null} projectId={projectId}/>
             {product?.length > 0 ? 
             <main>
                 <div className="container">

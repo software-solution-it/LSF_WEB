@@ -33,7 +33,7 @@ const Inauguration: React.FC = () => {
     
     return (
         <div>
-                            <Menu />
+            <Menu user={null} projectId={projectId}/>
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>

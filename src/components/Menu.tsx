@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../assets/logo-home.png';
+import { User } from '../interface/userInterface';
 
-const Menu: React.FC = () => {
+interface MenuProps {
+    user: User | null;
+    projectId: any;
+}
+
+const Menu = ({ user, projectId }: MenuProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeMenuItem, setActiveMenuItem] = useState('Página Inicial');
     const navigate = useNavigate();
-
+    
     const handleMenuItemClick = (menuItem: string) => {
         setActiveMenuItem(menuItem);
         if (menuItem === 'Sair') {
             localStorage.removeItem('accessToken');
             navigate('/login');
+        }
+    };
+
+    const handleNavigation = (path: string, state?: any) => {
+        if (projectId != null) {
+            navigate(path, { state: { projectId: projectId } });
+        } else {
+            navigate(path, { state: { projectId: state.projects[0].id } });
         }
     };
 
@@ -49,44 +63,28 @@ const Menu: React.FC = () => {
                 <ul className="mt-2">
                     <li>
                         <a
-                            href="/home"
+                            href="#"
                             className={activeMenuItem === 'Página Inicial' ? 'active' : ''}
-                            onClick={() => handleMenuItemClick('Página Inicial')}
+                            onClick={() => {
+                                handleMenuItemClick('Página Inicial');
+                                handleNavigation('/home', { user });
+                            }}
                         >
                             <i className="me-2 fas fa-home icon"></i> Página Inicial
                         </a>
                     </li>
-                    {/* 
                     <li>
                         <a
                             href="#"
-                            className={activeMenuItem === 'Projetos' ? 'active' : ''}
-                            onClick={() => handleMenuItemClick('Projetos')}
-                        >
-                           <i className="me-2 fas fa-folder icon"></i> Projetos*
-                        </a>
-                    </li>
-                    */}
-                    <li>
-                        <a
-                            href="/projects"
                             className={activeMenuItem === 'Inauguração' ? 'active' : ''}
-                            onClick={() => handleMenuItemClick('Inauguração')}
+                            onClick={() => {
+                                handleMenuItemClick('Inauguração');
+                                handleNavigation('/projects', { user});
+                            }}
                         >
                             <i className="me-2 fas fa-star icon"></i> Inauguração
                         </a>
                     </li>
-                                  {/*
-                    <li className="mb-5">
-                        <a
-                            href="#"
-                            className={activeMenuItem === 'Perfil' ? 'active' : ''}
-                            onClick={() => handleMenuItemClick('Perfil')}
-                        >
-                            <i className="me-2 fas fa-user icon"></i> Perfil
-                        </a>
-                    </li>
-                */}
                     <li>
                         <a
                             href="#"
