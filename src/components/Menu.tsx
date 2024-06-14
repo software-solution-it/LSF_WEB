@@ -26,7 +26,7 @@ const Menu = ({ user, projectId }: MenuProps) => {
         if (projectId != null) {
             navigate(path, { state: { projectId: projectId } });
         } else {
-            navigate(path, { state: { projectId: state.projects[0].id } });
+            navigate(path, { state: { projectId: state.user.projects[0].id } });
         }
     };
 
@@ -63,8 +63,8 @@ const Menu = ({ user, projectId }: MenuProps) => {
                 <ul className="mt-2">
                     <li>
                         <a
-                            href="#"
-                            className={activeMenuItem === 'Página Inicial' ? 'active' : ''}
+                            style={{cursor: 'pointer'}}
+                            className={`cursor-pointer activeMenuItem === 'Página Inicial' ? 'active' : ''`}
                             onClick={() => {
                                 handleMenuItemClick('Página Inicial');
                                 handleNavigation('/home', { user });
@@ -75,7 +75,7 @@ const Menu = ({ user, projectId }: MenuProps) => {
                     </li>
                     <li>
                         <a
-                            href="#"
+                            style={{cursor: 'pointer'}}
                             className={activeMenuItem === 'Inauguração' ? 'active' : ''}
                             onClick={() => {
                                 handleMenuItemClick('Inauguração');
@@ -87,6 +87,7 @@ const Menu = ({ user, projectId }: MenuProps) => {
                     </li>
                     <li>
                         <a
+                            style={{cursor: 'pointer'}}
                             href="#"
                             className={activeMenuItem === 'Sair' ? 'active' : ''}
                             onClick={() => handleMenuItemClick('Sair')}
