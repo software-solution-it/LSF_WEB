@@ -81,7 +81,7 @@ const Inauguration_2: React.FC = () => {
         if(parameter === 'home'){
             navigate('/home');
         }else{
-            navigate('/step/inauguration_3', { state: { projectId } });
+            navigate('/step/quantity', { state: { projectId } });
         }
     };
 

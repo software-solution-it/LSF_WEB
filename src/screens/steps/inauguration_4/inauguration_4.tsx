@@ -11,7 +11,7 @@ const Inauguration_4: React.FC = () => {
 
     const handleNext = (type:any) => {
         localStorage.setItem('washerType', type );
-        navigate('/step/inauguration_6', { state: { projectId } });
+        navigate('/step/aquisition', { state: { projectId } });
     };
 
     const handleProduct = (type:string) => {

@@ -47,7 +47,7 @@ const Inauguration_3: React.FC = () => {
 
     const handleCloseImageModal = () => {
         setShowImageModal(false);
-        navigate('/step/inauguration_4', { state: { projectId } });
+        navigate('/step/set', { state: { projectId } });
     };
 
     useEffect(() => {

@@ -20,22 +20,23 @@ import Laundry_Inauguration from './screens/steps/laundry_inauguration/laundry_i
 import Supplier_Document from './screens/steps/supplier_document/supplier_document';
 import Waiting_Aproval from './screens/steps/waiting_aproval/waiting_aproval';
 import Electric from './screens/steps/electric/electric';
+import Reset from './screens/reset_pass/reset_pass';
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reset" element={<Reset />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/inauguration" element={<Inauguration />} />
+        <Route path="/projects" element={<Inauguration />} />
         <Route path="/step/geolocalization" element={<Geolocation />} />
         <Route path="/step/electric" element={<Electric />} />
-        <Route path="/step/inauguration" element={<StepInauguration />} />
-        <Route path="/step/inauguration_2" element={<Inauguration_2 />} />
-        <Route path="/step/inauguration_3" element={<Inauguration_3 />} />
-        <Route path="/step/inauguration_4" element={<Inauguration_4 />} />
-        <Route path="/step/inauguration_5" element={<Inauguration_5 />} />
-        <Route path="/step/inauguration_6" element={<Inauguration_6 />} />
+        <Route path="/step/project" element={<StepInauguration />} />
+        <Route path="/step/dimension" element={<Inauguration_2 />} />
+        <Route path="/step/quantity" element={<Inauguration_3 />} />
+        <Route path="/step/set" element={<Inauguration_4 />} />
+        <Route path="/step/aquisition" element={<Inauguration_6 />} />
         <Route path="/step/supplier" element={<Supplier />} />
         <Route path="/step/board" element={<Supplier_Board />} />
         <Route path="/step/product" element={<Supplier_Product />} />

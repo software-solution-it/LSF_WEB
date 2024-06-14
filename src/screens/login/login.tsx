@@ -4,6 +4,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './login.css';
 import Logo from '../../assets/logo.png';
 import userService from '../../services/userService';
+import { jwtDecode } from "jwt-decode";
+
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -11,14 +13,21 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [language] = useState('pt'); // Set the language to 'pt'
+    const [language] = useState('pt');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         const response = await userService.login(email, password);
         if (response?.accessToken) {
             localStorage.setItem('accessToken', response.accessToken);
-            navigate('/home');
+            
+            const payload: any = jwtDecode(response.accessToken)
+            
+            if (payload.fa.toLowerCase() == 'true') {
+                navigate('/reset');
+            } else {
+                navigate('/home');
+            }
         } else {
             setEmailError(true);
             setPasswordError(true);

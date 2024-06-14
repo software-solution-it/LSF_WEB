@@ -11,7 +11,7 @@ const Inauguration: React.FC = () => {
 
 
     const handleNext = () => {
-        navigate('/step/electric', { state: { projectId } });
+        navigate('/step/dimension', { state: { projectId } });
     };
 
     useEffect(() => {

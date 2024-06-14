@@ -216,7 +216,7 @@ ul{
     position: relative;
     padding: 20px;
     box-shadow: 0 16px 8px rgba(0, 0, 0, 0.2) !important;
-    min-width: 600px;
+    min-width: 780px;
     cursor: pointer;
     background-color: white;
     overflow: hidden;
@@ -226,8 +226,7 @@ ul{
     position: relative;
     padding: 20px;
     box-shadow: 0 16px 8px rgba(0, 0, 0, 0.2) !important;
-    min-width: 600px;
-    cursor: pointer;
+    min-width: 780px;
     background-color: white;
     overflow: hidden;
 }
@@ -321,6 +320,10 @@ ul{
     .project-info {
         width: 80% !important;
     }
+
+    .project-info-mandala {
+        width: 80% !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -338,4 +341,14 @@ ul{
         background-color: white;
         overflow: hidden;
     }
+
+    .project-info-mandala {
+        position: relative;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-width: 90% !important;
+        background-color: white;
+        overflow: hidden;
+    }
+
 }

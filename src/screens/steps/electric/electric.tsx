@@ -39,7 +39,7 @@ const Electric: React.FC = () => {
             const fetchData = async () => {
                 const response = await electricService.createElectric(electric);
                 if (response) {
-                    navigate('/step/inauguration_2', { state: { projectId } });
+                    navigate('/step/project', { state: { projectId } });
                 } 
             };
             fetchData();

@@ -33,10 +33,10 @@ const Inauguration: React.FC = () => {
         if (type === 1) {
             navigate('/step/geolocalization' , { state: { projectId } });
         } else if (type === 2) {
-            navigate('/step/inauguration_2' , { state: { projectId } });
+            navigate('/step/dimension' , { state: { projectId } });
         } else if (type === 3) {
             if (currentProject?.suppliers.length == 0) {
-                navigate('/step/inauguration_6' , { state: { projectId } });
+                navigate('/step/aquisition' , { state: { projectId } });
             } else if (currentProject?.suppliers.length == 1) {
                 navigate('/step/board' , { state: { projectId } });
             } else if (currentProject?.suppliers.length == 2) {

@@ -45,7 +45,7 @@ const Home: React.FC = () => {
 
     const handleInauguration = (projectId: any) => {
         if (checkListMandala == false) {
-            navigate('/inauguration', { state: { projectId } });
+            navigate('/projects', { state: { projectId } });
         }
     };
 
@@ -112,8 +112,9 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 {currentUser.projects.map((project, index) => (
-                    <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-5">
+                    <>
                         {checkListMandala ? (
+                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-5">
                             <div>
                                 <h2 className="col">CHECK LIST MANDALA</h2>
                                 <p className="text-danger mt-3">Proibido compartilhar mandala; Protegido por direitos autorais</p>
@@ -255,8 +256,9 @@ const Home: React.FC = () => {
                                     </button>
                                 </div>
                             </div>
+                                                </div>
                         ) : (
-                            <>
+                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info mb-5">
                                 <h2 className="col">Minha Lavanderia</h2>
                                 <p className="row">Cronograma atual de inauguração:</p>
                                 <ul className="col-12 schedule">
@@ -317,9 +319,9 @@ const Home: React.FC = () => {
                                         </div>
                                     </li>
                                 </ul>
-                            </>
+                                </div>
                         )}
-                    </div>
+                        </>
                 ))}
             </main>
             : <></>}

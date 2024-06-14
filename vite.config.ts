@@ -6,7 +6,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api.faculdadedelavanderia.com.br',
+       // target: 'https://api.faculdadedelavanderia.com.br',
+        target: 'http://localhost:5000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
         secure: true

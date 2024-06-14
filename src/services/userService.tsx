@@ -24,4 +24,18 @@ const login = async (email:string, password:string) => {
     }
 };
 
-export default {getCurrentUser, login};
+const newPassword = async (password:string) => {
+    const token = localStorage.getItem('accessToken');
+    try {
+        const response = await axios.put(`/api/user/NewPassword?password=${encodeURIComponent(password)}`, {}, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return response.data;  
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+export default {getCurrentUser, login, newPassword};
