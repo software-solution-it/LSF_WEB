@@ -5,6 +5,7 @@ import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
 import technicianService from '../../../services/technicianService';
+import loading from '../../../assets/loading.gif';
 
 const Supplier_Technician: React.FC = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Supplier_Technician: React.FC = () => {
     const [supplier, setSupplier] = useState<any>([]);
     const [comboSelectedId, setComboSelectedId] = useState<any>();
     const [currentUser, setCurrentUser] = useState<any | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
     const { projectId } = location.state || {};
     const dryer = localStorage.getItem('washerType');
@@ -43,7 +45,9 @@ const Supplier_Technician: React.FC = () => {
     }, [navigate]);
 
     const handleNext = async () => {
+        setIsLoading(true);
         const response = await supplierService.createUserTech(comboSelectedId, projectId);
+        setIsLoading(false);
         if (response) {
             navigate('/step/laundry_inauguration', { state: { projectId } });
         }
@@ -197,11 +201,16 @@ const Supplier_Technician: React.FC = () => {
                                 </div>
                                 <div className="text-center">
                                     <button
-                                        disabled={!nextEnabled}
-                                        className={`mt-5 mb-3 px-5 py-3 ${!nextEnabled ? 'btn-request-confirm-disabled' : 'btn-request-confirm-suplier'}`}
+                                        style={{width:200, height:60}} 
+                                        disabled={!nextEnabled || isLoading}
+                                        className={`mt-5 mb-3 py-3 ${!nextEnabled ? 'btn-request-confirm-disabled' : 'btn-request-confirm-suplier'}`}
                                         onClick={handleNext}
                                     >
-                                        Próximo passo
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Próximo passo'
+                                        )}
                                     </button>
                                 </div>
                             </div>

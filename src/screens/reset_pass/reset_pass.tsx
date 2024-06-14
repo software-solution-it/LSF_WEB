@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import Logo from '../../assets/logo.png';
 import userService from '../../services/userService';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import loading from '../../assets/loading.gif';
 import './reset_pass.css';
 
 const Reset: React.FC = () => {
@@ -12,12 +13,15 @@ const Reset: React.FC = () => {
     const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [language] = useState('pt');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         if (validatePassword(password, confirmPassword)) {
+            setIsLoading(true);
             const response = await userService.newPassword(password);
+            setIsLoading(false);
             if (response) {
                 localStorage.removeItem('accessToken');
                 navigate('/login');
@@ -82,6 +86,7 @@ const Reset: React.FC = () => {
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     onFocus={handlePasswordFocus}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="password">{language === 'pt' ? 'Senha' : 'Password'}</label>
                                                 <i
@@ -119,12 +124,12 @@ const Reset: React.FC = () => {
                                                     value={confirmPassword}
                                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                                     onFocus={handlePasswordFocus}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="confirmPassword">{language === 'pt' ? 'Confirmar Senha' : 'Confirm Password'}</label>
                                                 <i
-                                                
                                                     className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'} position-absolute eye-icon`}
-                                                    style={{ cursor: 'pointer', top: 26}}
+                                                    style={{ cursor: 'pointer', top: 26 }}
                                                     onClick={toggleConfirmPasswordVisibility}
                                                 ></i>
                                             </div>
@@ -137,8 +142,12 @@ const Reset: React.FC = () => {
                                                     </ul>
                                                 </div>
                                             )}
-                                            <button className="mt-3 login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin}>
-                                                {language === 'pt' ? 'Redefinir Senha' : 'Reset Password'}
+                                            <button className="mt-3 login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin} disabled={isLoading}>
+                                                {isLoading ? (
+                                                    <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                                ) : (
+                                                    language === 'pt' ? 'Redefinir Senha' : 'Reset Password'
+                                                )}
                                             </button>
                                         </div>
                                     </div>

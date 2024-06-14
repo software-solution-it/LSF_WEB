@@ -5,7 +5,7 @@ import './login.css';
 import Logo from '../../assets/logo.png';
 import userService from '../../services/userService';
 import { jwtDecode } from "jwt-decode";
-
+import loading from '../../assets/loading.gif';
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -13,17 +13,21 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [language] = useState('pt');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+        setIsLoading(true);
         const response = await userService.login(email, password);
+        setIsLoading(false);
+
         if (response?.accessToken) {
             localStorage.setItem('accessToken', response.accessToken);
             
-            const payload: any = jwtDecode(response.accessToken)
+            const payload: any = jwtDecode(response.accessToken);
             
-            if (payload.fa.toLowerCase() == 'true') {
+            if (payload.fa.toLowerCase() === 'true') {
                 navigate('/reset');
             } else {
                 navigate('/home');
@@ -81,6 +85,7 @@ const Login: React.FC = () => {
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     onFocus={handleEmailFocus}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="email">{language === 'pt' ? 'Email' : 'E-mail'}</label>
                                                 {emailError && <div className="invalid-feedback">{language === 'pt' ? 'Email inválido' : 'Invalid email'}</div>}
@@ -94,6 +99,7 @@ const Login: React.FC = () => {
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     onFocus={handlePasswordFocus}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="password">{language === 'pt' ? 'Senha' : 'Password'}</label>
                                                 <i
@@ -103,8 +109,12 @@ const Login: React.FC = () => {
                                                 ></i>
                                                 {passwordError && <div className="invalid-feedback error-message">{language === 'pt' ? 'Senha inválida' : 'Invalid password'}</div>}
                                             </div>
-                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin}>
-                                                {language === 'pt' ? 'Entrar' : 'Login'}
+                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin} disabled={isLoading}>
+                                                {isLoading ? (
+                                                    <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                                ) : (
+                                                    language === 'pt' ? 'Entrar' : 'Login'
+                                                )}
                                             </button>
                                         </div>
                                     </div>

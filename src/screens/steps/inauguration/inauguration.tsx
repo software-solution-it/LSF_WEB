@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './inauguration.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
+import loading from '../../../assets/loading.gif';
 
 const Inauguration: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { projectId } = location.state || {};
-
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleNext = () => {
+        setIsLoading(true);
         navigate('/step/dimension', { state: { projectId } });
     };
 
@@ -18,8 +20,7 @@ const Inauguration: React.FC = () => {
         const fetchData = async () => {
             try {
                 const response = await userService.getCurrentUser();
-                if (response) {
-                } else {
+                if (!response) {
                     navigate('/login');
                 }
             } catch (e) {
@@ -28,12 +29,11 @@ const Inauguration: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
-    
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>
@@ -66,13 +66,18 @@ const Inauguration: React.FC = () => {
                                     </div>
                                 </div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                <button
-                                className="mt-3 py-3 btn btn-request-confirm-steps text-center"
-                                onClick={handleNext}
-                            >
-                                Começar
-                            </button>
-                            </div>
+                                    <button
+                                        className="mt-3 py-3 btn btn-request-confirm-steps text-center"
+                                        onClick={handleNext}
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Começar'
+                                        )}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 import supplierService from '../../../services/supplierService';
 import { User } from '../../../interface/userInterface';
+import loading from '../../../assets/loading.gif';
 
 const Suplier: React.FC = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Suplier: React.FC = () => {
     const [showError, setShowError] = useState(false);
     const [supplier, setSupplier] = useState<any>([]);
     const [checkedState, setCheckedState] = useState({ contact: false, purchase: false });
+    const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
     const { projectId } = location.state || {};
 
@@ -47,10 +49,12 @@ const Suplier: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
     const handleNext = async () => {
+        setIsLoading(true);
         const response = await supplierService.createUserSupplier(1, projectId);
+        setIsLoading(false);
         if (response) {
             if (dryer === '9') {
                 navigate('/step/board', { state: { projectId } });
@@ -111,12 +115,12 @@ const Suplier: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             {supplier?.length > 0 ?
                 <main>
                     <div className="container">
                         <div className="row justify-content-center">
-                            <div className="col-12 col-md-8" style={{marginTop:80}}>
+                            <div className="col-12 col-md-8" style={{ marginTop: 80 }}>
                                 <div className="welcome-section-quantity my-5 mb-3">
                                     <ul>
                                         <li>
@@ -126,7 +130,7 @@ const Suplier: React.FC = () => {
                                             </div>
 
                                             <select
-                                                className={`form-select py-3  ${showError && !comboSelected ? 'select-error' : ''}`}
+                                                className={`form-select py-3 ${showError && !comboSelected ? 'select-error' : ''}`}
                                                 aria-label="Default select example"
                                                 onChange={handleSelectChange}
                                             >
@@ -138,7 +142,9 @@ const Suplier: React.FC = () => {
                                                 ))}
                                             </select>
                                             <div className='d-flex justify-content-center align-items-center my-4'>
-                                                <button onClick={() => { handleWhatsappClick() }} className={`btn btn-success px-4 py-2 ${!whatsappVisible ? 'whatsapp-hidden' : ''}`} style={{ borderRadius: 30 }}><i className="fa-brands fa-whatsapp" aria-hidden="true"></i> Entrar em contato agora</button>
+                                                <button onClick={handleWhatsappClick} className={`btn btn-success px-4 py-2 ${!whatsappVisible ? 'whatsapp-hidden' : ''}`} style={{ borderRadius: 30 }}>
+                                                    <i className="fa-brands fa-whatsapp" aria-hidden="true"></i> Entrar em contato agora
+                                                </button>
                                             </div>
 
                                             <div className={`form-check}`}>
@@ -174,8 +180,12 @@ const Suplier: React.FC = () => {
                                     </ul>
                                 </div>
                                 <div className="text-center">
-                                    <button disabled={!nextEnabled} className={`mt-5 mb-3 px-5 py-3 ${!nextEnabled ? 'btn-request-confirm-disabled' : 'btn-request-confirm-suplier'}`} onClick={handleNext}>
-                                        Próximo passo
+                                    <button style={{width:200, height:60}}  disabled={!nextEnabled || isLoading} className={`mt-5 mb-3 py-3 ${!nextEnabled ? 'btn-request-confirm-disabled' : 'btn-request-confirm-suplier'}`} onClick={handleNext}>
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Próximo passo'
+                                        )}
                                     </button>
                                 </div>
                             </div>

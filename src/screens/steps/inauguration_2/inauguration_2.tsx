@@ -11,11 +11,12 @@ import Plant4x4_2 from '../../../assets/plant/4x4_2.png';
 import Plant5x6 from '../../../assets/plant/5x6.png';
 import ImageModal from '../../../components/ImageModal';
 import { User } from '../../../interface/userInterface';
+import loading from '../../../assets/loading.gif';
 
 interface PointData {
     width: string;
     length: string;
-    projectId:any
+    projectId: any;
 }
 
 const Inauguration_2: React.FC = () => {
@@ -26,48 +27,46 @@ const Inauguration_2: React.FC = () => {
     const [length, setLength] = useState('');
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [showModal, setShowModal] = useState(false);
-    const [showImageModal, setShowImageModal] = useState(false); 
+    const [showImageModal, setShowImageModal] = useState(false);
     const [imageSrc, setImageSrc] = useState<string | string[]>('');
     const [machineCount, setMachineCount] = useState(0);
     const [invalidWeight, setInvalidWeight] = useState(false);
     const [invalidNext, setInvalidNext] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            try{
-            const response = await userService.getCurrentUser();
-            if (response) {
-                setCurrentUser(response.user);
-            }else{
+            try {
+                const response = await userService.getCurrentUser();
+                if (response) {
+                    setCurrentUser(response.user);
+                } else {
+                    navigate('/login');
+                }
+            } catch (e) {
                 navigate('/login');
             }
-        }catch(e){
-            navigate('/login');
-        }
         };
 
         fetchData();
-    }, []);
-
+    }, [navigate]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            if(Number(width) < 3 || Number(length) < 4){
-                setInvalidWeight(false);
-                setInvalidNext(false);
-            }else{
-                setInvalidWeight(true);
-            }
-        };
-
-        fetchData();
+        if (Number(width) < 3 || Number(length) < 4) {
+            setInvalidWeight(false);
+            setInvalidNext(false);
+        } else {
+            setInvalidWeight(true);
+        }
     }, [width, length]);
 
     const handleNext = () => {
         if (currentUser) {
             const fetchData = async () => {
+                setIsLoading(true);
                 const pointData: PointData = { width, length, projectId: projectId };
                 const response = await pointService.createPoint(pointData);
+                setIsLoading(false);
                 if (response) {
                     setShowModal(true);
                 }
@@ -76,11 +75,11 @@ const Inauguration_2: React.FC = () => {
         }
     };
 
-    const handleCloseModal = (parameter:any) => {
+    const handleCloseModal = (parameter: any) => {
         setShowModal(false);
-        if(parameter === 'home'){
+        if (parameter === 'home') {
             navigate('/home');
-        }else{
+        } else {
             navigate('/step/quantity', { state: { projectId } });
         }
     };
@@ -92,8 +91,8 @@ const Inauguration_2: React.FC = () => {
         const machinesPerRow = Math.floor(widthNum / 2);
         const machinesPerColumn = Math.floor(lengthNum / 2);
         const totalMachines = machinesPerRow * machinesPerColumn;
-        if(Number(width) >= 3 || Number(length) >= 4){
-        setInvalidNext(true);
+        if (Number(width) >= 3 || Number(length) >= 4) {
+            setInvalidNext(true);
         }
         setMachineCount(totalMachines);
     };
@@ -121,14 +120,13 @@ const Inauguration_2: React.FC = () => {
         setShowImageModal(false);
     };
 
-
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-8 text-center"  style={{marginTop:80}}>
+                        <div className="col-12 col-md-8 text-center" style={{ marginTop: 80 }}>
                             <div className="welcome-section-geolocalization mt-4">
                                 <ul>
                                     <li>
@@ -150,6 +148,7 @@ const Inauguration_2: React.FC = () => {
                                                         maxLength={2}
                                                         className="dimension-input"
                                                         onChange={(e) => setWidth(e.target.value)}
+                                                        disabled={isLoading}
                                                     />
                                                 </div>
                                             </div>
@@ -162,20 +161,21 @@ const Inauguration_2: React.FC = () => {
                                                         maxLength={2}
                                                         className="dimension-input"
                                                         onChange={(e) => setLength(e.target.value)}
+                                                        disabled={isLoading}
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                         <h5 className="mt-4">*Dimensão mínima de 4 (largura) x 4 (comprimento)</h5>
                                         <div className='d-flex justify-content-center align-items-center flex-column'>
-                                        <button disabled={!invalidWeight} className={`btn mt-4 ${!invalidWeight ? 'invalidWeight' : 'validWeight'}`} onClick={handleCalculate}>
-                                            Calcular
-                                        </button>
+                                            <button disabled={!invalidWeight || isLoading} className={`btn mt-4 ${!invalidWeight ? 'invalidWeight' : 'validWeight'}`} onClick={handleCalculate}>
+                                                Calcular
+                                            </button>
 
-                                       <button disabled={!invalidNext} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
-                                            Visualizar modelo
-                                        </button>
-                                        
+                                            <button disabled={!invalidNext || isLoading} className={`btn mt-4 ${!invalidNext ? 'invalidWeight' : 'validWeight'}`} onClick={handleVisualize}>
+                                                Visualizar modelo
+                                            </button>
+
                                         </div>
 
                                         <div className="mt-4 container-quantity p-3 text-center">
@@ -186,23 +186,27 @@ const Inauguration_2: React.FC = () => {
                                     </li>
                                 </ul>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                <button
-                                disabled={!invalidNext}
-                                className="mt-3 py-3 btn btn-request-confirm-steps text-center"
-                                onClick={handleNext}
-                            >
-                                Confirmar
-                            </button>
+                                    <button
+                                        disabled={!invalidNext || isLoading}
+                                        className="mt-3 py-3 btn btn-request-confirm-steps text-center"
+                                        onClick={handleNext}
+                                    >
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Confirmar'
+                                        )}
+                                    </button>
+                                </div>
                             </div>
-                            </div>
-                            
+
                         </div>
                     </div>
                 </div>
                 <Modal show={showModal} handleClose={handleCloseModal}>
-                <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
-            </Modal>
-            <ImageModal show={showImageModal} handleClose={handleCloseImageModal} imageSrc={imageSrc} />
+                    <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
+                </Modal>
+                <ImageModal show={showImageModal} handleClose={handleCloseImageModal} imageSrc={imageSrc} />
             </main>
         </div>
     );

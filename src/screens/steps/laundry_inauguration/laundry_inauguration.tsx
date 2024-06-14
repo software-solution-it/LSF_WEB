@@ -3,20 +3,23 @@ import './laundry_inauguration.css'; // Importando o arquivo CSS
 import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import supplierService from '../../../services/supplierService';
+import loading from '../../../assets/loading.gif';
 
 const Laundry_Inauguration: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { projectId } = location.state || {};
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleNext = async () => {
+        setIsLoading(true);
         const response = await supplierService.createUserInauguration(projectId);
+        setIsLoading(false);
     
         if (response) {
             navigate('/home');
         }
-
     };
-
 
     useEffect(() => {
         const steps = document.querySelectorAll('.step');
@@ -40,7 +43,6 @@ const Laundry_Inauguration: React.FC = () => {
         };
     }, []);
     
-
     return (
         <div>
             <Menu user={null} projectId={projectId}/>
@@ -110,8 +112,17 @@ const Laundry_Inauguration: React.FC = () => {
                                 </ul>
                             </div>
                             <div className="text-center">
-                                <button className={`mb-5 px-5 py-2 btn-request-confirm-suplier`} onClick={handleNext}>
-                                    Concluir
+                                <button
+                                style={{width:200, height:60}} 
+                                    className={`mb-5 px-5 py-2 btn-request-confirm-suplier`}
+                                    onClick={handleNext}
+                                    disabled={isLoading}
+                                >
+                                    {isLoading ? (
+                                        <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                    ) : (
+                                        'Concluir'
+                                    )}
                                 </button>
                             </div>
                         </div>

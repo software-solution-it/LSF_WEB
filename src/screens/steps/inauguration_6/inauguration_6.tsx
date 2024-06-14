@@ -1,46 +1,43 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './inauguration_6.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
-import supplierService from '../../../services/supplierService';
 import { User } from '../../../interface/userInterface';
+import loading from '../../../assets/loading.gif';
 
 const Inauguration_6: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { projectId } = location.state || {};
-
-
-    const handleNext = () => {
-        navigate('/step/supplier', { state: { projectId } });
-    };
-
+    const [isLoading, setIsLoading] = useState(false);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+
     useEffect(() => {
         const fetchData = async () => {
-            try{
-            const response = await userService.getCurrentUser();
-            if (response) {
-                setCurrentUser(response);
-            }else{
+            try {
+                const response = await userService.getCurrentUser();
+                if (response) {
+                    setCurrentUser(response);
+                } else {
+                    navigate('/login');
+                }
+            } catch (e) {
                 navigate('/login');
             }
-        }catch(e){
-            navigate('/login');
-        }
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
-
-
-
+    const handleNext = () => {
+        setIsLoading(true);
+        navigate('/step/supplier', { state: { projectId } });
+    };
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>
@@ -92,13 +89,18 @@ const Inauguration_6: React.FC = () => {
                                         <span className="ms-3">Escolha do técnico</span>
                                     </div>
                                     <div className='d-flex justify-content-end'>
-                                <button
-                                className="mt-3 py-3 btn btn-request-confirm-steps text-center"
-                                onClick={handleNext}
-                            >
-                                Começar
-                            </button>
-                            </div>
+                                        <button
+                                            className="mt-3 py-3 btn btn-request-confirm-steps text-center"
+                                            onClick={handleNext}
+                                            disabled={isLoading}
+                                        >
+                                            {isLoading ? (
+                                                <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                            ) : (
+                                                'Começar'
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

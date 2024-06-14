@@ -6,6 +6,7 @@ import userService from '../../../services/userService';
 import geolocalizationService from '../../../services/geolocalizationService';
 import Modal from '../../../components/Modal';
 import { User } from '../../../interface/userInterface';
+import loading from '../../../assets/loading.gif';
 
 interface GeolocationData {
     latitude: number;
@@ -30,25 +31,24 @@ const Geolocation: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [geolocationData, setGeolocationData] = useState<GeolocationData | null>(null);
     const [showModal, setShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            try{
-            const response = await userService.getCurrentUser();
-            if (response) {
-                setCurrentUser(response.user);
-            }else{
+            try {
+                const response = await userService.getCurrentUser();
+                if (response) {
+                    setCurrentUser(response.user);
+                } else {
+                    navigate('/login');
+                }
+            } catch (e) {
                 navigate('/login');
             }
-        }catch(e){
-            navigate('/login');
-        }
         };
 
         fetchData();
-    }, []);
-
-
+    }, [navigate]);
 
     // Inicialize o mapa apenas uma vez
     useEffect(() => {
@@ -136,7 +136,9 @@ const Geolocation: React.FC = () => {
     const handleNext = () => {
         if (geolocationData && currentUser) {
             const fetchData = async () => {
+                setIsLoading(true);
                 const response = await geolocalizationService.createGeolocation(geolocationData);
+                setIsLoading(false);
                 if (response) {
                     setShowModal(true);
                 }
@@ -146,22 +148,22 @@ const Geolocation: React.FC = () => {
         }
     };
 
-    const handleCloseModal = (parameter:any) => {
+    const handleCloseModal = (parameter: any) => {
         setShowModal(false);
-        if(parameter === 'home'){
+        if (parameter === 'home') {
             navigate('/home', { state: { projectId } });
-        }else{
+        } else {
             navigate('/step/electric', { state: { projectId } });
         }
     };
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center align-items-center">
-                        <div className="col-md-12" style={{marginTop:80}}>
+                        <div className="col-md-12" style={{ marginTop: 80 }}>
                             <div className="welcome-section-geolocalization mt-4">
                                 <ul>
                                     <li>
@@ -184,6 +186,7 @@ const Geolocation: React.FC = () => {
                                                 onChange={handleAddressChange}
                                                 onFocus={handleAddressFocus}
                                                 ref={addressInputRef}
+                                                disabled={isLoading}
                                             />
                                             <label htmlFor="address">Endereço completo</label>
                                             {addressError && <div className="invalid-feedback">Por favor, insira um endereço válido com número.</div>}
@@ -192,16 +195,21 @@ const Geolocation: React.FC = () => {
                                 </ul>
                                 <div ref={mapRef} className="map-container my-5"></div>
                                 <div className='d-flex justify-content-center align-items-center'>
-                                <button
-                                className="mb-3 py-3 btn btn-request-confirm-steps text-center"
-                                onClick={handleNext}
-                            >
-                                Confirmar
-                            </button>
-                            </div>
-                            <Modal show={showModal} handleClose={handleCloseModal}>
-                <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
-            </Modal>
+                                    <button
+                                        className="mb-3 py-3 btn btn-request-confirm-steps text-center"
+                                        onClick={handleNext}
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Confirmar'
+                                        )}
+                                    </button>
+                                </div>
+                                <Modal show={showModal} handleClose={handleCloseModal}>
+                                    <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
+                                </Modal>
                             </div>
                         </div>
                     </div>

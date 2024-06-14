@@ -4,6 +4,7 @@ import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 import { User } from '../../../interface/userInterface';
 import electricService from '../../../services/electricService';
+import loading from '../../../assets/loading.gif';
 
 const Electric: React.FC = () => {
     const navigate = useNavigate();
@@ -14,8 +15,8 @@ const Electric: React.FC = () => {
         voltage: '220v',
         network: 'Monofasica',
         projectId: projectId,
-    
     });
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,10 +38,12 @@ const Electric: React.FC = () => {
     const handleNext = () => {
         if (currentUser) {
             const fetchData = async () => {
+                setIsLoading(true);
                 const response = await electricService.createElectric(electric);
+                setIsLoading(false);
                 if (response) {
                     navigate('/step/project', { state: { projectId } });
-                } 
+                }
             };
             fetchData();
         }
@@ -48,11 +51,11 @@ const Electric: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-8"  style={{marginTop:80}}>
+                        <div className="col-12 col-md-8" style={{ marginTop: 80 }}>
                             <div className="welcome-section-electric mt-4">
                                 <ul>
                                     <li>
@@ -61,32 +64,34 @@ const Electric: React.FC = () => {
                                         </div>
                                         <div className="rounded">
                                             <p className="py-1 mx-2">
-                                                Todos os equipamentos são <span style={{fontWeight:'bold'}}>220V</span>. Pergunte ao seu eletricista os dados abaixo para ter acesso ao projeto:
+                                                Todos os equipamentos são <span style={{ fontWeight: 'bold' }}>220V</span>. Pergunte ao seu eletricista os dados abaixo para ter acesso ao projeto:
                                             </p>
                                         </div>
                                     </li>
                                 </ul>
-                                <div className=" mx-2 mb-3 d-flex justify-content-start flex-column align-items-start">
-                                    <label htmlFor="voltageSelect" className="form-label" style={{fontWeight:'bold'}}>Voltagem da energia</label>
-                                    <select 
-                                        id="voltageSelect" 
-                                        className="form-select" 
-                                        style={{width:180}}
-                                        value={electric.voltage} 
-                                        onChange={(e) => setElectric({...electric, voltage: e.target.value})}
+                                <div className="mx-2 mb-3 d-flex justify-content-start flex-column align-items-start">
+                                    <label htmlFor="voltageSelect" className="form-label" style={{ fontWeight: 'bold' }}>Voltagem da energia</label>
+                                    <select
+                                        id="voltageSelect"
+                                        className="form-select"
+                                        style={{ width: 180 }}
+                                        value={electric.voltage}
+                                        onChange={(e) => setElectric({ ...electric, voltage: e.target.value })}
+                                        disabled={isLoading}
                                     >
                                         <option value="220v">220V</option>
                                         <option value="110v">110V</option>
                                     </select>
                                 </div>
-                                <div className=" mx-2 mb-3 d-flex justify-content-start flex-column align-items-start">
-                                    <label htmlFor="energyTypeSelect" className="form-label"  style={{fontWeight:'bold'}}>Tipo de energia</label>
-                                    <select 
-                                        id="energyTypeSelect" 
-                                        className="form-select" 
-                                        style={{width:180}}
-                                        value={electric.network} 
-                                        onChange={(e) => setElectric({...electric, network: e.target.value})}
+                                <div className="mx-2 mb-3 d-flex justify-content-start flex-column align-items-start">
+                                    <label htmlFor="energyTypeSelect" className="form-label" style={{ fontWeight: 'bold' }}>Tipo de energia</label>
+                                    <select
+                                        id="energyTypeSelect"
+                                        className="form-select"
+                                        style={{ width: 180 }}
+                                        value={electric.network}
+                                        onChange={(e) => setElectric({ ...electric, network: e.target.value })}
+                                        disabled={isLoading}
                                     >
                                         <option value="Monofasica">Monofasica</option>
                                         <option value="Bifasica">Bifasica</option>
@@ -97,8 +102,13 @@ const Electric: React.FC = () => {
                                     <button
                                         className="mt-3 py-3 btn btn-request-confirm-steps text-center"
                                         onClick={handleNext}
+                                        disabled={isLoading}
                                     >
-                                        Confirmar
+                                        {isLoading ? (
+                                            <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                        ) : (
+                                            'Confirmar'
+                                        )}
                                     </button>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import userService from '../../services/userService';
 import mandalaService from '../../services/mandalaService';
 import { User } from '../../interface/userInterface';
 import { Mandala } from '../../interface/mandalaInterface';
+import loading from '../../assets/loading.gif';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -42,9 +43,10 @@ const Home: React.FC = () => {
     });
 
     const [checkListMandala, setCheckListMandala] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInauguration = (projectId: any) => {
-        if (checkListMandala == false) {
+        if (!checkListMandala) {
             navigate('/projects', { state: { projectId } });
         }
     };
@@ -84,7 +86,9 @@ const Home: React.FC = () => {
 
     const handleSaveMandala = async () => {
         if (currentUser) {
+            setIsLoading(true);
             const response = await mandalaService.createMandala(mandala);
+            setIsLoading(false);
             if (response) {
                 setMandala(response);
                 setCheckListMandala(false);
@@ -115,148 +119,152 @@ const Home: React.FC = () => {
                     <>
                         {checkListMandala ? (
                             <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-5">
-                            <div>
-                                <h2 className="col">CHECK LIST MANDALA</h2>
-                                <p className="text-danger mt-3">Proibido compartilhar mandala; Protegido por direitos autorais</p>
-                                <p className='text-center'>Importante lembrar, que a mandala é sua bússola, te guiará no passo a passo da sua Lavanderia</p>
-                                <ul className="col-12 checklist">
-                                    <li>
-                                        <span className="fw-bold">1 - PONTO IDEAL:</span>
-                                        <ul>
-                                            <li className="form-check mb-2 mt-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="chooseLocation" checked={mandala.chooseLocation} />
-                                                <label className="form-check-label" htmlFor="chooseLocation">Escolher Ponto</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="closeContract" checked={mandala.closeContract} />
-                                                <label className="form-check-label" htmlFor="closeContract">Fechar Contrato</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="plumbingElectrical" checked={mandala.plumbingElectrical} />
-                                                <label className="form-check-label" htmlFor="plumbingElectrical">Hidráulica e elétrica</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="drywall" checked={mandala.drywall} />
-                                                <label className="form-check-label" htmlFor="drywall">Drywall</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="mdfOptional" checked={mandala.mdfOptional} />
-                                                <label className="form-check-label" htmlFor="mdfOptional">MDF/ Opcional</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="glassWall" checked={mandala.glassWall} />
-                                                <label className="form-check-label" htmlFor="glassWall">Blindex</label>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span className="fw-bold">2 - MOTORIZAÇÃO:</span>
-                                        <ul>
-                                            <li className="form-check mb-2 mt-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="machines" checked={mandala.machines} />
-                                                <label className="form-check-label" htmlFor="machines">Máquinas</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="automatedComputers" checked={mandala.automatedComputers} />
-                                                <label className="form-check-label" htmlFor="automatedComputers">Computador Automatizados</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="cardMachine" checked={mandala.cardMachine} />
-                                                <label className="form-check-label" htmlFor="cardMachine">Maquineta de cartão (Verificar se precisa)</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="platesDispensers" checked={mandala.platesDispensers} />
-                                                <label className="form-check-label" htmlFor="platesDispensers">Placas e dosadores</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="chemicals" checked={mandala.chemicals} />
-                                                <label className="form-check-label" htmlFor="chemicals">Produtos Químicos</label>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span className="fw-bold">3 - SINALIZAÇÃO:</span>
-                                        <ul>
-                                            <li className="form-check mb-2 mt-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="brandRegistrationOptional" checked={mandala.brandRegistrationOptional} />
-                                                <label className="form-check-label" htmlFor="brandRegistrationOptional">Registro de marca (Opcional)</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="stickers" checked={mandala.stickers} />
-                                                <label className="form-check-label" htmlFor="stickers">Adesivos</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="environmentDecoration" checked={mandala.environmentDecoration} />
-                                                <label className="form-check-label" htmlFor="environmentDecoration">Decoração ambiente</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="sofaTableBasket" checked={mandala.sofaTableBasket} />
-                                                <label className="form-check-label" htmlFor="sofaTableBasket">Sofá, mesa, cesto</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="facade" checked={mandala.facade} />
-                                                <label className="form-check-label" htmlFor="facade">Fachada</label>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span className="fw-bold">4 - CONFORTO:</span>
-                                        <ul>
-                                            <li className="form-check mb-2 mt-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="airConditioning" checked={mandala.airConditioning} />
-                                                <label className="form-check-label" htmlFor="airConditioning">Ar condicionado</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="internet" checked={mandala.internet} />
-                                                <label className="form-check-label" htmlFor="internet">Internet</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="paperHolder" checked={mandala.paperHolder} />
-                                                <label className="form-check-label" htmlFor="paperHolder">Suporte de Papel</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="alcoholSprayer" checked={mandala.alcoholSprayer} />
-                                                <label className="form-check-label" htmlFor="alcoholSprayer">Pulverizador álcool</label>
-                                            </li>
-                                            <li className="form-check mb-2">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="clothesFoldersOptional" checked={mandala.clothesFoldersOptional} />
-                                                <label className="form-check-label" htmlFor="clothesFoldersOptional">Dobradores de roupa (Opcional)</label>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <span className="fw-bold">5 - CONTROLE E SEGURANÇA:</span>
-                                        <ul>
-                                            <li className="form-check">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="camera" checked={mandala.camera} />
-                                                <label className="form-check-label" htmlFor="camera">Câmera</label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="airSensor" checked={mandala.airSensor} />
-                                                <label className="form-check-label" htmlFor="airSensor">Sensor de Ar</label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="machineAlarm" checked={mandala.machineAlarm} />
-                                                <label className="form-check-label" htmlFor="machineAlarm">Alarme de Máquinas</label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="wifiSocketAdapter" checked={mandala.wifiSocketAdapter} />
-                                                <label className="form-check-label" htmlFor="wifiSocketAdapter">Adapt. De tomada Wi-Fi</label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="doorLock" checked={mandala.doorLock} />
-                                                <label className="form-check-label" htmlFor="doorLock">Tranca de Porta</label>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <div className='d-flex justify-content-center align-items-center my-4'>
-                                    <button onClick={handleSaveMandala} style={{width:250}} className="btn btn-primary">
-                                        Atualizar Mandala
-                                    </button>
+                                <div>
+                                    <h2 className="col">CHECK LIST MANDALA</h2>
+                                    <p className="text-danger mt-3">Proibido compartilhar mandala; Protegido por direitos autorais</p>
+                                    <p className='text-center'>Importante lembrar, que a mandala é sua bússola, te guiará no passo a passo da sua Lavanderia</p>
+                                    <ul className="col-12 checklist">
+                                        <li>
+                                            <span className="fw-bold">1 - PONTO IDEAL:</span>
+                                            <ul>
+                                                <li className="form-check mb-2 mt-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="chooseLocation" checked={mandala.chooseLocation} />
+                                                    <label className="form-check-label" htmlFor="chooseLocation">Escolher Ponto</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="closeContract" checked={mandala.closeContract} />
+                                                    <label className="form-check-label" htmlFor="closeContract">Fechar Contrato</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="plumbingElectrical" checked={mandala.plumbingElectrical} />
+                                                    <label className="form-check-label" htmlFor="plumbingElectrical">Hidráulica e elétrica</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="drywall" checked={mandala.drywall} />
+                                                    <label className="form-check-label" htmlFor="drywall">Drywall</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="mdfOptional" checked={mandala.mdfOptional} />
+                                                    <label className="form-check-label" htmlFor="mdfOptional">MDF/ Opcional</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="glassWall" checked={mandala.glassWall} />
+                                                    <label className="form-check-label" htmlFor="glassWall">Blindex</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <span className="fw-bold">2 - MOTORIZAÇÃO:</span>
+                                            <ul>
+                                                <li className="form-check mb-2 mt-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="machines" checked={mandala.machines} />
+                                                    <label className="form-check-label" htmlFor="machines">Máquinas</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="automatedComputers" checked={mandala.automatedComputers} />
+                                                    <label className="form-check-label" htmlFor="automatedComputers">Computador Automatizados</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="cardMachine" checked={mandala.cardMachine} />
+                                                    <label className="form-check-label" htmlFor="cardMachine">Maquineta de cartão (Verificar se precisa)</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="platesDispensers" checked={mandala.platesDispensers} />
+                                                    <label className="form-check-label" htmlFor="platesDispensers">Placas e dosadores</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="chemicals" checked={mandala.chemicals} />
+                                                    <label className="form-check-label" htmlFor="chemicals">Produtos Químicos</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <span className="fw-bold">3 - SINALIZAÇÃO:</span>
+                                            <ul>
+                                                <li className="form-check mb-2 mt-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="brandRegistrationOptional" checked={mandala.brandRegistrationOptional} />
+                                                    <label className="form-check-label" htmlFor="brandRegistrationOptional">Registro de marca (Opcional)</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="stickers" checked={mandala.stickers} />
+                                                    <label className="form-check-label" htmlFor="stickers">Adesivos</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="environmentDecoration" checked={mandala.environmentDecoration} />
+                                                    <label className="form-check-label" htmlFor="environmentDecoration">Decoração ambiente</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="sofaTableBasket" checked={mandala.sofaTableBasket} />
+                                                    <label className="form-check-label" htmlFor="sofaTableBasket">Sofá, mesa, cesto</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="facade" checked={mandala.facade} />
+                                                    <label className="form-check-label" htmlFor="facade">Fachada</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <span className="fw-bold">4 - CONFORTO:</span>
+                                            <ul>
+                                                <li className="form-check mb-2 mt-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="airConditioning" checked={mandala.airConditioning} />
+                                                    <label className="form-check-label" htmlFor="airConditioning">Ar condicionado</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="internet" checked={mandala.internet} />
+                                                    <label className="form-check-label" htmlFor="internet">Internet</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="paperHolder" checked={mandala.paperHolder} />
+                                                    <label className="form-check-label" htmlFor="paperHolder">Suporte de Papel</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="alcoholSprayer" checked={mandala.alcoholSprayer} />
+                                                    <label className="form-check-label" htmlFor="alcoholSprayer">Pulverizador álcool</label>
+                                                </li>
+                                                <li className="form-check mb-2">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="clothesFoldersOptional" checked={mandala.clothesFoldersOptional} />
+                                                    <label className="form-check-label" htmlFor="clothesFoldersOptional">Dobradores de roupa (Opcional)</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <span className="fw-bold">5 - CONTROLE E SEGURANÇA:</span>
+                                            <ul>
+                                                <li className="form-check">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="camera" checked={mandala.camera} />
+                                                    <label className="form-check-label" htmlFor="camera">Câmera</label>
+                                                </li>
+                                                <li className="form-check">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="airSensor" checked={mandala.airSensor} />
+                                                    <label className="form-check-label" htmlFor="airSensor">Sensor de Ar</label>
+                                                </li>
+                                                <li className="form-check">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="machineAlarm" checked={mandala.machineAlarm} />
+                                                    <label className="form-check-label" htmlFor="machineAlarm">Alarme de Máquinas</label>
+                                                </li>
+                                                <li className="form-check">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="wifiSocketAdapter" checked={mandala.wifiSocketAdapter} />
+                                                    <label className="form-check-label" htmlFor="wifiSocketAdapter">Adapt. De tomada Wi-Fi</label>
+                                                </li>
+                                                <li className="form-check">
+                                                    <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="doorLock" checked={mandala.doorLock} />
+                                                    <label className="form-check-label" htmlFor="doorLock">Tranca de Porta</label>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                    <div className='d-flex justify-content-center align-items-center my-4'>
+                                        <button onClick={handleSaveMandala} style={{width:250, backgroundColor:"#383a99"}} className="btn btn-primary" disabled={isLoading}>
+                                            {isLoading ? (
+                                                <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                            ) : (
+                                                'Atualizar Mandala'
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                                                </div>
                         ) : (
                             <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info mb-5">
                                 <h2 className="col">Minha Lavanderia</h2>
@@ -319,9 +327,9 @@ const Home: React.FC = () => {
                                         </div>
                                     </li>
                                 </ul>
-                                </div>
+                            </div>
                         )}
-                        </>
+                    </>
                 ))}
             </main>
             : <></>}
