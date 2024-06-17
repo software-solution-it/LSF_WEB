@@ -115,7 +115,7 @@ const Home: React.FC = () => {
                 {currentUser.projects.map((project, index) => (
                     <>
                         {checkListMandala ? (
-                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-5">
+                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-3">
                                 <div>
                                     <h2 className="col">CHECK LIST MANDALA</h2>
                                     <p className="text-danger mt-3">Proibido compartilhar mandala; Protegido por direitos autorais</p>
