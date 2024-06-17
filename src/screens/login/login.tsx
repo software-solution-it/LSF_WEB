@@ -13,6 +13,7 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [isManutencao, setIsManutencao] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [language] = useState('pt');
     const navigate = useNavigate();
@@ -37,6 +38,15 @@ const Login: React.FC = () => {
             setPasswordError(true);
         }
     };
+
+    const handleManutencao = async () => {
+        setIsManutencao(true);
+
+        setTimeout(() => {
+            setIsManutencao(false);
+        }, 5000);
+    };
+    
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -88,6 +98,7 @@ const Login: React.FC = () => {
                                                     disabled={isLoading}
                                                 />
                                                 <label htmlFor="email">{language === 'pt' ? 'Email' : 'E-mail'}</label>
+                                                {isManutencao && <div className="invalid-feedback">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {emailError && <div className="invalid-feedback">{language === 'pt' ? 'Email inválido' : 'Invalid email'}</div>}
                                             </div>
                                             <div className="form-floating mb-3 position-relative custom-password login-type">
@@ -107,9 +118,10 @@ const Login: React.FC = () => {
                                                     style={{ cursor: 'pointer' }}
                                                     onClick={togglePasswordVisibility}
                                                 ></i>
+                                                {isManutencao && <div className="invalid-feedback">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {passwordError && <div className="invalid-feedback error-message">{language === 'pt' ? 'Senha inválida' : 'Invalid password'}</div>}
                                             </div>
-                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin} disabled={isLoading}>
+                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleManutencao} disabled={isLoading}>
                                                 {isLoading ? (
                                                     <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
                                                 ) : (
