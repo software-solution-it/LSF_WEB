@@ -273,7 +273,7 @@ const Home: React.FC = () => {
                                     <li>
                                         <div className='mb-4 d-flex justify-content-between align-items-center'>
                                             <div className="d-flex align-items-center">
-                                                <i className="fas fa-tools me-3"></i>
+                                                <i className="fas fa-map me-3"></i>
                                                 <div className='d-flex flex-column'>
                                                     <span className="fw-bold">Mod. 1 | Geolocalização</span>
                                                     <span>{project.geolocation?.createdAt ? project.geolocation.createdAt : "Não iniciado"}</span>

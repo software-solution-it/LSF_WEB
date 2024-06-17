@@ -60,11 +60,11 @@ const Electric: React.FC = () => {
                                 <ul>
                                     <li>
                                         <div className="mb-4">
-                                            <h2 className="p-0 m-0">Colete a voltagem de energia</h2>
+                                            <h2 className="p-0 m-0">Colete a voltagem de energia do seu ponto comercial</h2>
                                         </div>
                                         <div className="rounded">
                                             <p className="py-1 mx-2">
-                                                Todos os equipamentos são <span style={{ fontWeight: 'bold' }}>220V</span>. Pergunte ao seu eletricista os dados abaixo para ter acesso ao projeto:
+                                                Todos os equipamentos que você irá utilizar <span style={{ fontWeight: 'bold' }}>220V</span>. Leve um eletricista e solicite os dados abaixo para a inteligência gerar o seu projeto:
                                             </p>
                                         </div>
                                     </li>
