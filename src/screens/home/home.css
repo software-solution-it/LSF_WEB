@@ -225,6 +225,14 @@ ul{
     overflow: hidden;
 }
 
+.project-info-new {
+    position: relative;
+    padding: 20px;
+    min-width: 820px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
 .project-info-mandala {
     position: relative;
     padding: 20px;
@@ -320,8 +328,14 @@ ul{
         width: 100%;
     }
 
+    
+
     .project-info {
         width: 80% !important;
+    }
+
+    .project-info-new {
+        min-width: 100% !important;
     }
 
     .project-info-mandala {

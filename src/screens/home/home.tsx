@@ -107,9 +107,6 @@ const Home: React.FC = () => {
                         <p>Seja bem-vindo ao portal LSF</p>
                     </div>
                     <div className="col buttons">
-                        <button disabled className="btn new-project-button">
-                            <i className="fas fa-plus icon"></i> Nova Lavanderia
-                        </button>
                         <button onClick={handleChangeChecklist} className="btn mandala-button">
                             <i className="fas"></i> {checkListMandala ? 'Minha Lavanderia' : 'Checklist Mandala'}
                         </button>
@@ -266,7 +263,7 @@ const Home: React.FC = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info mb-5">
+                            <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info mb-3">
                                 <h2 className="col">Minha Lavanderia</h2>
                                 <p className="row">Cronograma atual de inauguração:</p>
                                 <ul className="col-12 schedule">
@@ -327,9 +324,19 @@ const Home: React.FC = () => {
                                         </div>
                                     </li>
                                 </ul>
+                                
                             </div>
+                            
                         )}
+                                                      <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-new mb-4">
+                                                        <div>
+                                                        <button disabled className="btn new-project-button">
+                            <i className="fas fa-plus icon"></i> Nova Lavanderia
+                        </button>
+                        </div>
+                            </div>
                     </>
+                    
                 ))}
             </main>
             : <></>}
