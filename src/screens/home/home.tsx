@@ -173,7 +173,7 @@ const Home: React.FC = () => {
                                                     <input onChange={handleCheckboxChange} className="form-check-input" type="checkbox" id="chemicals" checked={mandala.chemicals} />
                                                     <label className="form-check-label" htmlFor="chemicals">Produtos Químicos</label>
                                                 </li>
-                                            </ul>
+                                            </ul> 
                                         </li>
                                         <li>
                                             <span className="fw-bold">3 - SINALIZAÇÃO:</span>
