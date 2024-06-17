@@ -38,9 +38,11 @@ const Welcome: React.FC = () => {
                                             <button className="mb-3 py-3 btn btn-request-confirm btn-requst" onClick={handleYesClick}>
                                                 {language === 'pt' ? 'Sim' : 'Yes'}
                                             </button>
-                                            <button className="btn py-3 border btn-request">
-                                                {language === 'pt' ? 'Não' : 'No'}
-                                            </button>
+                                            <a className='' href="https://hotmart.com/pt-br/marketplace/produtos/lavanderia-self-service-metodo-sem-franquia/N75618382D" style={{ textDecoration: 'none' }}>
+      <button className="py-3 border  btn-request" style={{color: 'black !important', backgroundColor: '#F5F8FF' }}>
+        {language === 'pt' ? 'Não' : 'No'}
+      </button>
+    </a>
                                         </div>
                                     </div>
                                 </div>

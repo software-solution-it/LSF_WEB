@@ -13,9 +13,9 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [isManutencao, setIsManutencao] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [language] = useState('pt');
+    const [userInactive, setUserInactive] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -24,27 +24,18 @@ const Login: React.FC = () => {
         setIsLoading(false);
 
         if (response?.accessToken) {
-            localStorage.setItem('accessToken', response.accessToken);
-            
             const payload: any = jwtDecode(response.accessToken);
-            
-            if (payload.fa.toLowerCase() === 'true') {
-                navigate('/reset');
-            } else {
+
+            if (payload.active.toLowerCase() === 'true') {
+                localStorage.setItem('accessToken', response.accessToken);
                 navigate('/home');
+            } else {
+                setUserInactive(true);
             }
         } else {
             setEmailError(true);
             setPasswordError(true);
         }
-    };
-
-    const handleManutencao = async () => {
-        setIsManutencao(true);
-
-        setTimeout(() => {
-            setIsManutencao(false);
-        }, 5000);
     };
 
     const togglePasswordVisibility = () => {
@@ -53,10 +44,12 @@ const Login: React.FC = () => {
 
     const handleEmailFocus = () => {
         setEmailError(false);
+        setUserInactive(false);
     };
 
     const handlePasswordFocus = () => {
         setPasswordError(false);
+        setUserInactive(false);
     };
 
     return (
@@ -94,10 +87,9 @@ const Login: React.FC = () => {
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     onFocus={handleEmailFocus}
-                                                    disabled={isLoading || isManutencao}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="email">{language === 'pt' ? 'Email' : 'E-mail'}</label>
-                                                {isManutencao && <div className="invalid-feedback d-block">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {emailError && <div className="invalid-feedback">{language === 'pt' ? 'Email inválido' : 'Invalid email'}</div>}
                                             </div>
                                             <div className="form-floating mb-3 position-relative custom-password login-type">
@@ -109,22 +101,20 @@ const Login: React.FC = () => {
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     onFocus={handlePasswordFocus}
-                                                    disabled={isLoading || isManutencao}
+                                                    disabled={isLoading}
                                                 />
                                                 <label htmlFor="password">{language === 'pt' ? 'Senha' : 'Password'}</label>
-                                                {!isManutencao &&
                                                 <i
                                                     className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} position-absolute ${passwordError ? 'eye-icon' : 'eye-icon-old'}`}
                                                     style={{ cursor: 'pointer' }}
                                                     onClick={togglePasswordVisibility}
                                                 ></i>
-}
-                                                {isManutencao && <div className="invalid-feedback d-block">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {passwordError && <div className="invalid-feedback error-message">{language === 'pt' ? 'Senha inválida' : 'Invalid password'}</div>}
                                             </div>
-                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={isManutencao ? handleManutencao : handleLogin} disabled={isLoading || isManutencao}>
-                                                {isLoading  ? (
-                                                    <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
+                                            {userInactive && <div className="text-danger mb-3">{language === 'pt' ? 'Usuário ainda não está ativo' : 'User is not active yet'}</div>}
+                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleLogin} disabled={isLoading}>
+                                                {isLoading ? (
+                                                    <img style={{width: 25}} src={loading} alt="Loading" className="loading-gif" />
                                                 ) : (
                                                     language === 'pt' ? 'Entrar' : 'Login'
                                                 )}
