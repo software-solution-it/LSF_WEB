@@ -4,7 +4,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './login.css';
 import Logo from '../../assets/logo.png';
 import userService from '../../services/userService';
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from 'jwt-decode';
 import loading from '../../assets/loading.gif';
 
 const Login: React.FC = () => {
@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
-    const [isManutencao, setIsManutencao] = useState(false);
+    const [isManutencao, setIsManutencao] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [language] = useState('pt');
     const navigate = useNavigate();
@@ -46,7 +46,6 @@ const Login: React.FC = () => {
             setIsManutencao(false);
         }, 5000);
     };
-    
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -95,10 +94,10 @@ const Login: React.FC = () => {
                                                     value={email}
                                                     onChange={(e) => setEmail(e.target.value)}
                                                     onFocus={handleEmailFocus}
-                                                    disabled={isLoading}
+                                                    disabled={isLoading || isManutencao}
                                                 />
                                                 <label htmlFor="email">{language === 'pt' ? 'Email' : 'E-mail'}</label>
-                                                {isManutencao && <div className="invalid-feedback">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
+                                                {isManutencao && <div className="invalid-feedback d-block">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {emailError && <div className="invalid-feedback">{language === 'pt' ? 'Email inválido' : 'Invalid email'}</div>}
                                             </div>
                                             <div className="form-floating mb-3 position-relative custom-password login-type">
@@ -110,7 +109,7 @@ const Login: React.FC = () => {
                                                     value={password}
                                                     onChange={(e) => setPassword(e.target.value)}
                                                     onFocus={handlePasswordFocus}
-                                                    disabled={isLoading}
+                                                    disabled={isLoading || isManutencao}
                                                 />
                                                 <label htmlFor="password">{language === 'pt' ? 'Senha' : 'Password'}</label>
                                                 <i
@@ -118,11 +117,11 @@ const Login: React.FC = () => {
                                                     style={{ cursor: 'pointer' }}
                                                     onClick={togglePasswordVisibility}
                                                 ></i>
-                                                {isManutencao && <div className="invalid-feedback">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
+                                                {isManutencao && <div className="invalid-feedback d-block">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {passwordError && <div className="invalid-feedback error-message">{language === 'pt' ? 'Senha inválida' : 'Invalid password'}</div>}
                                             </div>
-                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={handleManutencao} disabled={isLoading}>
-                                                {isLoading ? (
+                                            <button className="login-type mb-3 py-3 btn btn-request-confirm" onClick={isManutencao ? handleManutencao : handleLogin} disabled={isLoading || isManutencao}>
+                                                {isLoading  ? (
                                                     <img style={{width:25}} src={loading} alt="Loading" className="loading-gif" />
                                                 ) : (
                                                     language === 'pt' ? 'Entrar' : 'Login'
