@@ -112,11 +112,13 @@ const Login: React.FC = () => {
                                                     disabled={isLoading || isManutencao}
                                                 />
                                                 <label htmlFor="password">{language === 'pt' ? 'Senha' : 'Password'}</label>
+                                                {!isManutencao &&
                                                 <i
                                                     className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} position-absolute ${passwordError ? 'eye-icon' : 'eye-icon-old'}`}
                                                     style={{ cursor: 'pointer' }}
                                                     onClick={togglePasswordVisibility}
                                                 ></i>
+}
                                                 {isManutencao && <div className="invalid-feedback d-block">{language === 'pt' ? 'Sistema indisponível no momento' : 'Maintenance in progress'}</div>}
                                                 {passwordError && <div className="invalid-feedback error-message">{language === 'pt' ? 'Senha inválida' : 'Invalid password'}</div>}
                                             </div>
