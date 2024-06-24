@@ -12,6 +12,7 @@ import Plant5x6 from '../../../assets/plant/5x6.png';
 import ImageModal from '../../../components/ImageModal';
 import { User } from '../../../interface/userInterface';
 import loading from '../../../assets/loading.gif';
+import notificationService from '../../../services/notificationService';
 
 interface PointData {
     width: string;
@@ -25,7 +26,7 @@ const Inauguration_2: React.FC = () => {
     const { projectId } = location.state || {};
     const [width, setWidth] = useState('');
     const [length, setLength] = useState('');
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | any>(null);
     const [showModal, setShowModal] = useState(false);
     const [showImageModal, setShowImageModal] = useState(false);
     const [imageSrc, setImageSrc] = useState<string | string[]>('');
@@ -33,6 +34,7 @@ const Inauguration_2: React.FC = () => {
     const [invalidWeight, setInvalidWeight] = useState(false);
     const [invalidNext, setInvalidNext] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,7 +70,7 @@ const Inauguration_2: React.FC = () => {
                 const response = await pointService.createPoint(pointData);
                 setIsLoading(false);
                 if (response) {
-                    setShowModal(true);
+                        navigate('/step/quantity', { state: { projectId } });
                 }
             };
             fetchData();
@@ -122,7 +124,7 @@ const Inauguration_2: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+        <Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

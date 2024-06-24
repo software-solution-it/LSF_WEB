@@ -9,9 +9,9 @@ import loading from '../../../assets/loading.gif';
 const Inauguration_6: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { projectId } = location.state || {};
     const [isLoading, setIsLoading] = useState(false);
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | any>(null);
+    const [refresh, setRefresh] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,12 +32,12 @@ const Inauguration_6: React.FC = () => {
 
     const handleNext = () => {
         setIsLoading(true);
-        navigate('/step/supplier', { state: { projectId } });
+        navigate('/step/supplier');
     };
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={currentUser?.user} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>

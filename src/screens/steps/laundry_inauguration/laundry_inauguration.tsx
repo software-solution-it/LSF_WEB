@@ -4,22 +4,44 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import supplierService from '../../../services/supplierService';
 import loading from '../../../assets/loading.gif';
+import { User } from '../../../interface/userInterface';
+import userService from '../../../services/userService';
 
 const Laundry_Inauguration: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { projectId } = location.state || {};
+    const [refresh, setRefresh] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserInauguration(projectId);
+        const response = await supplierService.createUserInauguration(currentUser?.projects[0]?.id);
         setIsLoading(false);
     
         if (response) {
             navigate('/home');
         }
     };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await userService.getCurrentUser();
+                if (response) {
+                    setCurrentUser(response.user);
+                } else {
+                    navigate('/login');
+                }
+            } catch (e) {
+                navigate('/login');
+            }
+        };
+
+        fetchData();
+    }, [navigate]);
 
     useEffect(() => {
         const steps = document.querySelectorAll('.step');
@@ -45,7 +67,7 @@ const Laundry_Inauguration: React.FC = () => {
     
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

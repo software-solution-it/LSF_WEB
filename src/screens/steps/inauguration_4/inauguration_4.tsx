@@ -3,15 +3,41 @@ import './inauguration_4.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
+import productService from '../../../services/productService';
+import notificationService from '../../../services/notificationService';
 
 const Inauguration_4: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { projectId } = location.state || {};
+    const { comboCount } = location.state || {};
+    const [currentUser, setCurrentUser] = useState<any | null>(null);
+    const [refresh, setRefresh] = useState(false);
 
-    const handleNext = (type:any) => {
-        localStorage.setItem('washerType', type );
-        navigate('/step/aquisition', { state: { projectId } });
+    const handleNext = async (type:any) => {
+        const product = {
+            supplierType: 1,
+            productId: type,
+            quantity: comboCount,
+            projectId: projectId
+        };
+
+        const response = await productService.createUserProduct(product);
+
+        if(response){
+
+          const notify = {
+            userId: currentUser.user.id,
+            title: "Novos modelos disponíveis",
+            message: "Você recebeu a planta da sua lavanderia e o modelo elétrico, clique para visualizar",
+            url: "/models"
+        };
+
+          const responseNotify = await notificationService.createNotification(notify);
+          if(responseNotify){
+            navigate('/step/aquisition', { state: { projectId } });
+          }
+        }
     };
 
     const handleProduct = (type:string) => {
@@ -22,6 +48,7 @@ const Inauguration_4: React.FC = () => {
       const fetchData = async () => {
           try {
               const response = await userService.getCurrentUser();
+              setCurrentUser(response);
               if (response) {
               } else {
                   navigate('/login');
@@ -55,7 +82,7 @@ const Inauguration_4: React.FC = () => {
 
     return (
 <div>
-<Menu user={null} projectId={projectId}/>
+<Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
   <main className="d-flex justify-content-center align-items-center">
     <div style={{width:'420px', marginTop:80}}  className="d-flex flex-column align-items-center">
       <div className="d-flex justify-content-center align-items-center py-4">

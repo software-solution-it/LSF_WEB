@@ -32,6 +32,7 @@ const Geolocation: React.FC = () => {
     const [geolocationData, setGeolocationData] = useState<GeolocationData | null>(null);
     const [showModal, setShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -159,7 +160,7 @@ const Geolocation: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center align-items-center">

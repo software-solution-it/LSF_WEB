@@ -23,6 +23,7 @@ const Supplier_Technician: React.FC = () => {
     const { projectId } = location.state || {};
     const dryer = localStorage.getItem('washerType');
     const quantityString = localStorage.getItem('machineQuantity');
+    const [refresh, setRefresh] = useState(false);
     const quantity = quantityString ? parseInt(quantityString) : 0;
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const Supplier_Technician: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentUser(response.user);
                     const responseTech = await technicianService.listTechnician();
                     setSupplier(responseTech);
                 } else {
@@ -46,7 +47,7 @@ const Supplier_Technician: React.FC = () => {
 
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserTech(comboSelectedId, projectId);
+        const response = await supplierService.createUserTech(comboSelectedId, currentUser?.projects[0]?.id);
         setIsLoading(false);
         if (response) {
             navigate('/step/laundry_inauguration', { state: { projectId } });
@@ -122,7 +123,7 @@ const Supplier_Technician: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
             {supplier?.length > 0 ? (
                 <main>
                     <div className="container">

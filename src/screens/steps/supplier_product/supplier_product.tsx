@@ -18,6 +18,7 @@ const Supplier_Product: React.FC = () => {
     const [product, setProduct] = useState<any>([]);
     const [supplier, setSupplier] = useState<any>([]);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [refresh, setRefresh] = useState(false);
     const [selectedProducts, setSelectedProducts] = useState<any>({
         detergent: null,
         softener: null,
@@ -32,7 +33,7 @@ const Supplier_Product: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentUser(response.user);
                     setProduct(await supplierService.getSupplierProductByType(3));
                     setSupplier(await supplierService.getSuppliersByType(3));
                 } else {
@@ -48,7 +49,7 @@ const Supplier_Product: React.FC = () => {
 
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserSupplier(3, projectId);
+        const response = await supplierService.createUserSupplier(3, currentUser?.projects[0]?.id);
         setIsLoading(false);
         if (response) {
             navigate('/step/payment', { state: { projectId } });
@@ -109,7 +110,7 @@ const Supplier_Product: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             {product?.length > 0 ? 
                 <main>
                     <div className="container">

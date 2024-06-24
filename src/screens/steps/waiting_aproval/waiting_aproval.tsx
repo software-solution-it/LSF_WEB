@@ -5,13 +5,14 @@ import Menu from '../../../components/Menu';
 
 const Waiting_Aproval: React.FC = () => {
     const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(false);
 
     const handleNext = () => {
             navigate('/home');
         }
     return (
         <div>
-            <Menu user={null} projectId={null}/>
+            <Menu user={null} projectId={null} setRefresh={setRefresh}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

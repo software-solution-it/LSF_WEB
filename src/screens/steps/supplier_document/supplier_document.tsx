@@ -10,6 +10,7 @@ const Supplier_Document: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const location = useLocation();
     const { projectId } = location.state || {};
+    const [refresh, setRefresh] = useState(false);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
@@ -38,7 +39,7 @@ const Supplier_Document: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

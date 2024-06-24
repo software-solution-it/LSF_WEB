@@ -21,10 +21,11 @@ const Supplier_Board: React.FC = () => {
     const location = useLocation();
     const { projectId } = location.state || {};
     const dryer = localStorage.getItem('washerType');
+    const [refresh, setRefresh] = useState(false);
     
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserSupplier(comboSelectedId, projectId);
+        const response = await supplierService.createUserSupplier(comboSelectedId, currentUser?.projects[0]?.id);
         setIsLoading(false);
         if (response) {
             navigate('/step/product', { state: { projectId } });
@@ -38,7 +39,7 @@ const Supplier_Board: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentUser(response.user);
                     setSupplier(await supplierService.getSuppliersByType(2));
                 } else {
                     navigate('/login');
@@ -102,7 +103,7 @@ const Supplier_Board: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
             {supplier?.length > 0 ? 
                 <main>
                     <div className="container">

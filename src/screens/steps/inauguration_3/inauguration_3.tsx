@@ -3,9 +3,6 @@ import './inauguration_3.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
-import ImageModal from '../../../components/ImageModal';
-import { User } from '../../../interface/userInterface';
-import PdfModal from '../../../components/PdfModal';
 import loading from '../../../assets/loading.gif';
 
 const Inauguration_3: React.FC = () => {
@@ -16,24 +13,11 @@ const Inauguration_3: React.FC = () => {
     const [comboCount, setComboCount] = useState<any>(4);
     const [currentUser, setCurrentUser] = useState<any | null>(null);
     const [showImageModal, setShowImageModal] = useState(false); 
-    const [imageSrc, setImageSrc] = useState<string | string[]>(''); 
     const [isLoading, setIsLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const handleNext = () => {
-        setIsLoading(true);
-        localStorage.setItem('machineQuantity', comboCount.toString());
-        if((comboCount > 1 && comboCount < 4) && currentUser?.user?.projects[0].electric?.network === 'Bifasica'){
-            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaBif3.pdf');
-        }else if((comboCount > 1 && comboCount < 4) && currentUser?.user?.projects[0].electric?.network === 'Trifasica'){
-            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif3.pdf');
-        }else if((comboCount > 2 && comboCount < 5) && currentUser?.user?.projects[0].electric?.network === 'Trifasica'){
-            setImageSrc('https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif4.pdf');
-        }else{
-            setIsLoading(false);
-            return navigate('/step/set', { state: { projectId } });
-        }
-        setIsLoading(false);
-        return setShowImageModal(true);
+        return navigate('/step/set', { state: { projectId, comboCount } });
     };
 
     const increaseCount = (count: number) => {
@@ -72,7 +56,7 @@ const Inauguration_3: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
@@ -117,7 +101,6 @@ const Inauguration_3: React.FC = () => {
                     </div>
                 </div>
             </main>
-            <PdfModal show={showImageModal} handleClose={handleCloseImageModal} imageSrc={imageSrc} />
         </div>
     );
 };

@@ -19,6 +19,7 @@ const Suplier: React.FC = () => {
     const [checkedState, setCheckedState] = useState({ contact: false, purchase: false });
     const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
+    const [refresh, setRefresh] = useState(false);
     const { projectId } = location.state || {};
 
     const washer = localStorage.getItem('dryerType');
@@ -31,7 +32,7 @@ const Suplier: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentUser(response.user);
                     const suppliers = await supplierService.getSuppliersByType(1);
                     if (dryer === '9') {
                         suppliers.splice(1, 1);
@@ -53,7 +54,7 @@ const Suplier: React.FC = () => {
 
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserSupplier(1, projectId);
+        const response = await supplierService.createUserSupplier(1, currentUser?.projects[0]?.id);
         setIsLoading(false);
         if (response) {
             if (dryer === '9') {
@@ -115,7 +116,7 @@ const Suplier: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={currentUser?.projects[0]?.id}  setRefresh={setRefresh}/>
             {supplier?.length > 0 ?
                 <main>
                     <div className="container">

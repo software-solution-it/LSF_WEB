@@ -20,10 +20,11 @@ const Supplier_Payment: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const location = useLocation();
     const { projectId } = location.state || {};
+    const [refresh, setRefresh] = useState(false);
 
     const handleNext = async () => {
         setIsLoading(true);
-        const response = await supplierService.createUserSupplier(comboSelectedId, projectId);
+        const response = await supplierService.createUserSupplier(comboSelectedId, currentUser?.projects[0]?.id);
         setIsLoading(false);
         if (response) {
             navigate('/step/technician', { state: { projectId } });
@@ -36,7 +37,7 @@ const Supplier_Payment: React.FC = () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
-                    setCurrentUser(response);
+                    setCurrentUser(response.user);
                     setSupplier(await supplierService.getSuppliersByType(4));
                 } else {
                     navigate('/login');
@@ -96,7 +97,7 @@ const Supplier_Payment: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
             {supplier?.length > 0 ? 
                 <main>
                     <div className="container">

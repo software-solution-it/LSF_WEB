@@ -11,6 +11,7 @@ const Electric: React.FC = () => {
     const location = useLocation();
     const { projectId } = location.state || {};
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [refresh, setRefresh] = useState(false);
     const [electric, setElectric] = useState<any>({
         voltage: '220v',
         network: 'Monofasica',
@@ -51,7 +52,7 @@ const Electric: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
