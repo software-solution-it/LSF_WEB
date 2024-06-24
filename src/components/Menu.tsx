@@ -8,7 +8,7 @@ import Logo from '../assets/logo-home.png';
 interface MenuProps {
     user: User | null;
     projectId: any;
-    setRefresh: (refresh: boolean) => void; // Definindo o tipo de setRefresh corretamente
+    setRefresh: any;
 }
 
 const Menu = ({ user, projectId, setRefresh }: MenuProps) => {
