@@ -10,6 +10,7 @@ const Inauguration: React.FC = () => {
     const location = useLocation();
     const { projectId } = location.state || {};
     const [isLoading, setIsLoading] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const handleNext = () => {
         setIsLoading(true);
@@ -33,7 +34,7 @@ const Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} />
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>
