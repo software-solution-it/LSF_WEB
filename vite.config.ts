@@ -13,5 +13,10 @@ export default defineConfig({
         secure: true
       }
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      external: ['pdfjs-dist/build/pdf.worker.entry'],
+    },
+  },
 });

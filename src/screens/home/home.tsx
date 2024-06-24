@@ -10,7 +10,8 @@ import loading from '../../assets/loading.gif';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | any>(null);
+    const [refresh, setRefresh] = useState(true);
     const [mandala, setMandala] = useState<Mandala>({
         id: 0,
         chooseLocation: false,
@@ -98,7 +99,7 @@ const Home: React.FC = () => {
 
     return (
         <div>
-            <Menu user={currentUser} projectId={null}/>
+            <Menu user={currentUser?.user} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             {currentUser?.id ? 
             <main className="main-content">
                 <div className="row welcome-section" style={{marginTop:100}}>
@@ -112,7 +113,7 @@ const Home: React.FC = () => {
                         </button>
                     </div>
                 </div>
-                {currentUser.projects.map((project, index) => (
+                {currentUser.projects.map((project:any, index:any) => (
                     <>
                         {checkListMandala ? (
                             <div key={index} onClick={() => handleInauguration(project.id)} className="row project-info-mandala mb-3">

@@ -11,6 +11,7 @@ const Inauguration: React.FC = () => {
     const [currentProject, setCurrentProject] = useState<any>(null);
     const location = useLocation();
     const { projectId } = location.state || {};
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -125,7 +126,7 @@ const Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId}/>
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
             <main className=''>
                 <div className="container">
                     <div className="row">

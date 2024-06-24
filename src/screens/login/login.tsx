@@ -28,7 +28,11 @@ const Login: React.FC = () => {
 
             if (payload.active.toLowerCase() === 'true') {
                 localStorage.setItem('accessToken', response.accessToken);
+                if(payload.fa.toLowerCase() === 'false'){
                 navigate('/home');
+                }else{
+                    navigate('/reset');
+                }
             } else {
                 setUserInactive(true);
             }

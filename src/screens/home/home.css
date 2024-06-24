@@ -3,8 +3,8 @@ li {
     list-style-type: none !important;
 }
 
-ul{
-    padding: 0 !important; 
+ul {
+    padding: 0 !important;
 }
 
 .header {
@@ -12,7 +12,7 @@ ul{
     position: fixed;
     width: 100%;
     z-index: 999;
-    background-color: #00014E;;
+    background-color: #00014E;
     color: white;
     height: 70px;
     display: flex;
@@ -22,7 +22,7 @@ ul{
     border-bottom: 2px solid white;
 }
 
-.mandala-button{
+.mandala-button {
     color: white !important;
     background-color: #00014E !important;
 }
@@ -30,42 +30,11 @@ ul{
 .menu-icon {
     cursor: pointer;
 }
-
 .notification-icon {
     position: relative;
     cursor: pointer;
     color: #fff;
     font-size: 18px;
-}
-
-.notification-icon .dropdown {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #ccc;
-    border-radius: 10px 0px 10px 10px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.notification-icon .dropdown.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 20px;
 }
 
 .notification-icon .bell-icon:hover {
@@ -78,6 +47,159 @@ ul{
     25% { transform: rotate(20deg); }
     75% { transform: rotate(-20deg); }
     100% { transform: rotate(0); }
+}
+
+.notification-icon {
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+}
+
+.notification-icon .bell-icon:hover {
+    animation: ring 1s ease;
+    transition: all 1s ease;
+}
+
+@keyframes ring {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(20deg); }
+    75% { transform: rotate(-20deg); }
+    100% { transform: rotate(0); }
+}
+
+.notification-count {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.2rem 0.5rem;
+    font-size: 0.7rem;
+}
+
+.notification-icon .dropdown {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.notification-icon .dropdown.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.notification-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-list li {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+
+.notification-list li a {
+    text-decoration: none;
+    color: inherit;
+    flex-grow: 1;
+}
+
+.notification-list li a strong {
+    display: block;
+    color: #00014E;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.notification-list li a p {
+    margin: 0.5rem 0 0 0;
+    color: #000;
+    font-size: 14px;
+}
+
+.notification-list li .delete-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
+    color: #000;
+    transition: color 0.3s ease;
+}
+
+.notification-list li .delete-icon:hover {
+    color: red;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #888;
+    margin-top: 0.5rem;
+}
+
+.notification-container {
+    background-color: #e4f0fd;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification-container-unread {
+    background-color: #f4f8fc;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.notification-message {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.notification-message p {
+    margin: 0;
+    color: #000;
+}
+
+.notification-status {
+    font-size: 10px;
+    color: #888;
+    text-align: right;
+    margin-top: 10px;
+    position: absolute;
+    font-weight: bold;
+    right: 35px;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 20px;
 }
 
 .hamburger span {
@@ -112,7 +234,7 @@ ul{
     left: -250px;
     z-index: 999;
     height: 100%;
-    background-color: #00014E;;
+    background-color: #00014E;
     color: white;
     transition: left 0.3s ease;
 }
@@ -167,6 +289,30 @@ ul{
     margin-bottom: 20px;
 }
 
+/* Estilos gerais */
+.welcome-section-model {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    align-items: flex-start;
+    width: 48% !important;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .welcome-section-model {
+        width: 95% !important;
+    }
+}
+
+.welcome-section-model {
+    display: flex;
+     flex-direction: column;
+     justify-content: flex-start !important;
+     align-items: flex-start;
+     margin-bottom: 20px
+ }
+
 .welcome-section h1 {
     margin-bottom: 10px;
     font-size: 24px;
@@ -215,6 +361,7 @@ ul{
 .new-project-button:hover {
     background-color: #218838;
 }
+
 .project-info {
     position: relative;
     padding: 20px;
@@ -224,6 +371,29 @@ ul{
     background-color: white;
     overflow: hidden;
 }
+
+.project-info-model {
+    position: relative;
+    box-shadow: 0 16px 8px rgba(0, 0, 0, 0.2) !important;
+    cursor: pointer;
+    background-color: white;
+    overflow: hidden;
+}
+
+.worker{
+    position: relative;
+    width: 50vw;
+    height: 35vw;
+    }
+
+@media (max-width: 768px) {
+    .worker{
+        position: relative;
+        width: 100vw;
+        height: 100vw;
+        }
+    }
+
 
 .project-info-new {
     position: relative;
@@ -285,6 +455,13 @@ ul{
     width: 100%;
 }
 
+.full-screen-iframe {
+    width: 100%;
+    height: 100vh; /* Define a altura do iframe para ocupar a altura total da viewport */
+    border: none; /* Remove a borda padrão do iframe */
+    
+}
+
 .project-info:hover span::before,
 .project-info:hover span::after {
     height: 100%;
@@ -328,8 +505,6 @@ ul{
         width: 100%;
     }
 
-    
-
     .project-info {
         width: 80% !important;
     }
@@ -367,5 +542,4 @@ ul{
         background-color: white;
         overflow: hidden;
     }
-
 }

@@ -20,6 +20,8 @@ import Supplier_Document from './screens/steps/supplier_document/supplier_docume
 import Waiting_Aproval from './screens/steps/waiting_aproval/waiting_aproval';
 import Electric from './screens/steps/electric/electric';
 import Reset from './screens/reset_pass/reset_pass';
+import Model from './screens/models/Model';
+import ViewPdf from './screens/models/ViewPdf';
 function App() {
   return (
     <Router>
@@ -28,6 +30,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/models" element={<Model />} />
+        <Route path="/view_model" element={<ViewPdf />} />
         <Route path="/projects" element={<Inauguration />} />
         <Route path="/step/geolocalization" element={<Geolocation />} />
         <Route path="/step/electric" element={<Electric />} />

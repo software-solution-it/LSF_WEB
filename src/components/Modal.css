@@ -71,6 +71,55 @@
     background: none;
 }
 
+/* Adicione este estilo global ao seu projeto */
+.pdf-container {
+    position: relative;
+    width: 50vw;
+    height: 80vh;
+}
+
+.rpv-core__display--hidden:first-child {
+    display: none !important; /* Esconde todos os itens */
+}
+
+.rpv-core__display--hidden:first-child {
+    display: none !important; /* Esconde todos os itens */
+}
+
+
+.rpv-core__display--hidden:nth-child(3) {
+    display: none !important; /* Esconde todos os itens */
+}
+
+
+.rpv-core__display--hidden:nth-child(5) {
+    display: none !important; /* Esconde todos os itens */
+}
+
+.rpv-default-layout__sidebar-header{
+    display: none !important;
+}
+
+.rpv-default-layout__sidebar-tabs{
+    width: 40px !important;
+    background-color:  #eee;
+}
+
+
+.fullscreen {
+    width: 150vw !important;
+    height: 150vh !important;
+}
+
+:fullscreen .pdf-container.fullscreen,
+:-webkit-full-screen .pdf-container.fullscreen,
+:-moz-full-screen .pdf-container.fullscreen,
+:-ms-fullscreen .pdf-container.fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+
 .modal-footer {
     display: flex;
     justify-content: flex-end;
@@ -86,4 +135,20 @@
     background-color: rgba(6, 106, 171, 1) !important;
     color: white !important;
     border-radius: 30px !important;
+}
+
+
+.rpv-core__page-layer:after {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.view_pdf{  
+    width: 80vw !important;
+}
+
+@media (max-width: 768px) {
+.view_pdf{  
+    width: 100vh !important;
+}
 }
