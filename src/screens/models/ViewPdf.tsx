@@ -109,8 +109,9 @@ const ViewPdf: React.FC = () => {
 
     return (
         <div>
-            <Menu user={currentUser?.user} projectId={currentUser?.projects[0]?.id} setRefresh={() => {}} />
             {currentUser?.id ? (
+                <>
+                <Menu user={currentUser} projectId={currentUser?.projects[0]?.id} setRefresh={() => {}} menuProject={true}/>
                 <main className="main-content">
                     <div className="welcome-section-model" style={{ marginTop: 100 }}>
                         <div>
@@ -124,6 +125,7 @@ const ViewPdf: React.FC = () => {
                         </div>
                     ))}
                 </main>
+                </>
             ) : null}
         </div>
     );

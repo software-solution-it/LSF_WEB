@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Menu from '../../../components/Menu';
 import userService from '../../../services/userService';
 import loading from '../../../assets/loading.gif';
+import { User } from '../../../interface/userInterface';
 
 const Inauguration: React.FC = () => {
     const navigate = useNavigate();
@@ -11,11 +12,14 @@ const Inauguration: React.FC = () => {
     const { projectId } = location.state || {};
     const [isLoading, setIsLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
+    const [currentUser, setCurrentUser] = useState<User | any>(null);
 
     const handleNext = () => {
         setIsLoading(true);
         navigate('/step/dimension', { state: { projectId } });
     };
+
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,6 +28,7 @@ const Inauguration: React.FC = () => {
                 if (!response) {
                     navigate('/login');
                 }
+                setCurrentUser(response.user);
             } catch (e) {
                 navigate('/login');
             }
@@ -34,7 +39,9 @@ const Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
+            {currentUser ?
+            <>
+            <Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
             <main className="main-content-inauguration">
                 <div className='container mt-5'>
                     <div className='row justify-content-center align-items-center'>
@@ -83,8 +90,10 @@ const Inauguration: React.FC = () => {
                         </div>
                     </div>
                 </div>
+       
             </main>
-
+            </>
+                 : <></>}
             <div>
             </div>
         </div>

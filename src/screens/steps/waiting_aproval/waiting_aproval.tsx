@@ -12,7 +12,7 @@ const Waiting_Aproval: React.FC = () => {
         }
     return (
         <div>
-            <Menu user={null} projectId={null} setRefresh={setRefresh}/>
+            <Menu user={null} projectId={null} setRefresh={setRefresh} menuProject={true}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

@@ -39,7 +39,7 @@ const Supplier_Document: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
+            <Menu user={null} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

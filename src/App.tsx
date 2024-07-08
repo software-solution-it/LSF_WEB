@@ -22,6 +22,7 @@ import Electric from './screens/steps/electric/electric';
 import Reset from './screens/reset_pass/reset_pass';
 import Model from './screens/models/Model';
 import ViewPdf from './screens/models/ViewPdf';
+import Report from './screens/report/Report';
 function App() {
   return (
     <Router>
@@ -31,6 +32,7 @@ function App() {
         <Route path="/reset" element={<Reset />} />
         <Route path="/home" element={<Home />} />
         <Route path="/models" element={<Model />} />
+        <Route path="/report" element={<Report />} />
         <Route path="/view_model" element={<ViewPdf />} />
         <Route path="/projects" element={<Inauguration />} />
         <Route path="/step/geolocalization" element={<Geolocation />} />

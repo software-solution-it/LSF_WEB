@@ -82,7 +82,9 @@ const Inauguration_4: React.FC = () => {
 
     return (
 <div>
-<Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
+  {currentUser ?
+  <>
+<Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
   <main className="d-flex justify-content-center align-items-center">
     <div style={{width:'420px', marginTop:80}}  className="d-flex flex-column align-items-center">
       <div className="d-flex justify-content-center align-items-center py-4">
@@ -117,7 +119,10 @@ const Inauguration_4: React.FC = () => {
         </div>
       </div>
     </div>
+    
   </main>
+  </>
+                 : <></>}
 </div>
 
     );

@@ -1,0 +1,98 @@
+.chat-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.chat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 40;
+}
+
+.chat-icon img {
+    width: 100%;
+}
+
+.chat-box {
+    width: 350px;
+    background-color: rgb(234, 238, 243) !important;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 60px;
+    right: 0;
+}
+
+.chat-header, .card-header {
+    background-color: #ffffff !important;
+    color: #fff !important;
+    height: 80px;
+}
+
+.chat-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinhar à esquerda */
+    overflow-y: auto;
+    padding: 10px;
+    max-height: 500px; /* Tamanho fixo da altura do corpo do chat */
+    min-height: 500px;
+}
+
+.chat-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+.chat-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-footer {
+    display: flex;
+    align-items: center;
+}
+
+.chat-message {
+    max-width: 80%;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #007bff;
+    border-radius: 14px 14px 2px 14px !important;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.openai-message {
+    background-color: #fff;
+    color: #000;
+    border-radius: 14px 14px 14px 2px !important;
+    align-self: flex-start;
+}
+
+.loading-text {
+    font-size: 1.5em;
+    text-align: center;
+    padding: 20px;
+}

@@ -67,7 +67,7 @@ const Laundry_Inauguration: React.FC = () => {
     
     return (
         <div>
-            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
+            <Menu user={currentUser} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} menuProject={true}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">

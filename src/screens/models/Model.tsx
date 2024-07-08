@@ -12,7 +12,7 @@ import productService from '../../services/productService';
 const Model: React.FC = () => {
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState<User | any>(null);
-    const [refresh, setRefresh] = useState(false);
+    const [refresh, setRefresh] = useState(true);
     const [product, setProduct] = useState<any>(null);
     const [mandala, setMandala] = useState<Mandala>({
         id: 0,
@@ -89,8 +89,9 @@ const Model: React.FC = () => {
 
     return (
         <div>
-          <Menu user={currentUser?.user} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             {currentUser?.id ? 
+            <>
+                      <Menu user={currentUser} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} menuProject={true}/>
             <main className="main-content">
                 <div className="row welcome-section" style={{marginTop:100}}>
                     <div className="col">
@@ -100,7 +101,7 @@ const Model: React.FC = () => {
                 </div>
                 {currentUser.projects.map((project:any, index:any) => (
                     <div key={index}>
-                        <div className="project-info mb-3 row px-5 mx-3">
+                        <div className="project-info-documents mb-3 row px-5 mx-3">
                         <div className="col">
                             <h4 className="col">Modelo elétrico</h4>
                             <p className="col">Modelo elétrico da sua lavanderia:</p>
@@ -124,7 +125,9 @@ const Model: React.FC = () => {
                     </div>
                 ))}
             </main>
+            </>
             : <></>}
+            
         </div>
     );
 };

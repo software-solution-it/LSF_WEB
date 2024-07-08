@@ -160,7 +160,8 @@ const Geolocation: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} setRefresh={setRefresh} />
+            
+            <Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} />
             <main>
                 <div className="container">
                     <div className="row justify-content-center align-items-center">

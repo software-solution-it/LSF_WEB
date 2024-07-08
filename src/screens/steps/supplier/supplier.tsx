@@ -116,7 +116,9 @@ const Suplier: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={currentUser?.projects[0]?.id}  setRefresh={setRefresh}/>
+            {currentUser ?
+            <>
+            <Menu user={currentUser} projectId={currentUser?.projects[0]?.id}  setRefresh={setRefresh} menuProject={true}/>
             {supplier?.length > 0 ?
                 <main>
                     <div className="container">
@@ -194,6 +196,8 @@ const Suplier: React.FC = () => {
                     </div>
                 </main>
                 : <></>}
+                                </>
+                 : <></>}
         </div>
     );
 };

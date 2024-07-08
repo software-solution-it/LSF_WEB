@@ -56,7 +56,9 @@ const Inauguration_3: React.FC = () => {
 
     return (
         <div>
-            <Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
+            {currentUser ?
+            <>
+            <Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
             <main>
                 <div className="container">
                     <div className="row justify-content-center">
@@ -101,6 +103,9 @@ const Inauguration_3: React.FC = () => {
                     </div>
                 </div>
             </main>
+            </>
+                 : <></>}
+            
         </div>
     );
 };

@@ -7,6 +7,7 @@ import mandalaService from '../../services/mandalaService';
 import { User } from '../../interface/userInterface';
 import { Mandala } from '../../interface/mandalaInterface';
 import loading from '../../assets/loading.gif';
+import Chat from '../../components/Chat';
 
 const Home: React.FC = () => {
     const navigate = useNavigate();
@@ -99,8 +100,9 @@ const Home: React.FC = () => {
 
     return (
         <div>
-            <Menu user={currentUser?.user} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             {currentUser?.id ? 
+            <div>
+                        <Menu user={currentUser} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} />
             <main className="main-content">
                 <div className="row welcome-section" style={{marginTop:100}}>
                     <div className="col">
@@ -340,6 +342,8 @@ const Home: React.FC = () => {
                     
                 ))}
             </main>
+            <Chat userId={currentUser.Id}/>
+            </div>
             : <></>}
         </div>
     );

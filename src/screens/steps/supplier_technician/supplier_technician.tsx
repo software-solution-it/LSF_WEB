@@ -26,14 +26,28 @@ const Supplier_Technician: React.FC = () => {
     const [refresh, setRefresh] = useState(false);
     const quantity = quantityString ? parseInt(quantityString) : 0;
 
+    const extractState = (address: string) => {
+        const addressParts = address.split('-');
+        if (addressParts.length > 2) {
+            const statePart = addressParts[addressParts.length - 2].trim();
+            return statePart.split(' ')[0].replace(',', '');
+        }
+        return '';
+    };
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await userService.getCurrentUser();
                 if (response) {
                     setCurrentUser(response.user);
+                    const userState = extractState(response.user.projects[0].geolocation.address).toUpperCase();
+
                     const responseTech = await technicianService.listTechnician();
-                    setSupplier(responseTech);
+
+                    const filteredTechnicians = responseTech.filter((tech: any) => 
+                        tech.country.toUpperCase() === userState
+                    );
+                    setSupplier(filteredTechnicians);
                 } else {
                     navigate('/login');
                 }
@@ -88,33 +102,12 @@ const Supplier_Technician: React.FC = () => {
     }, [comboSelected]);
 
     const handleWhatsappClick = () => {
-        let modeloEletrico = '';
-        if ((quantity > 1 && quantity < 4) && currentUser?.user?.projects[0]?.electric?.network === 'Bifasica') {
-            modeloEletrico = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaBif3.pdf';
-        } else if ((quantity > 1 && quantity < 4) && currentUser?.user?.projects[0]?.electric?.network === 'Trifasica') {
-            modeloEletrico = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif3.pdf';
-        } else if ((quantity > 2 && quantity < 5) && currentUser?.user?.projects[0]?.electric?.network === 'Trifasica') {
-            modeloEletrico = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/ElectricModel/LavanderiaTrif4.pdf';
-        }
-
-        let modeloMao = '';
-        if (currentUser?.user?.projects[0]?.point?.width > 3 && currentUser?.user?.projects[0]?.point?.length < 5) {
-            modeloMao = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/SketchTemplate/4x4.png';
-        } else if (currentUser?.user?.projects[0]?.point?.width > 2 && currentUser?.user?.projects[0]?.point?.length < 5) {
-            modeloMao = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/SketchTemplate/3x4.png';
-        } else {
-            modeloMao = 'https://faculdadedalavanderia.s3.sa-east-1.amazonaws.com/SketchTemplate/5x6.png';
-        }
 
         const supw = supplier.find((s: any) => s.id === Number(comboSelectedId));
         const phoneNumber = supw.phone;
         const message = `Olá, gostaria de falar sobre a instalação das máquinas abaixo para minha lavanderia:
 - Conjunto: ${dryer === '9' ? 'Speed Queen STACK Lavadora/Secadora 10kg/10,5kg' : 'Lavadora/Secadora GIANT-C+'}
-- Quantidade: ${quantity} conjuntos de máquinas.
-
-- Modelo Elétrico: ${modeloEletrico}
-
-- Modelo ${currentUser?.user?.projects[0]?.point?.width} x ${currentUser?.user?.projects[0]?.point?.length} : ${modeloMao}`;
+- Quantidade: ${quantity} conjuntos de máquinas.`;
 
         const whatsappLink = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
         window.open(whatsappLink, "_blank");
@@ -123,7 +116,9 @@ const Supplier_Technician: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh}/>
+            {currentUser ? 
+            <>
+            <Menu user={currentUser} projectId={currentUser?.projects[0]?.id} setRefresh={setRefresh} menuProject={true}/>
             {supplier?.length > 0 ? (
                 <main>
                     <div className="container">
@@ -184,19 +179,6 @@ const Supplier_Technician: React.FC = () => {
                                                     Conclui todos os itens da etapa de aquisição
                                                 </label>
                                             </div>
-                                            <div className="form-check mt-4">
-                                                <input
-                                                    className="form-check-input"
-                                                    type="checkbox"
-                                                    id="adequacyCheckbox"
-                                                    name="adequacy"
-                                                    checked={checkedState.purchase}
-                                                    onChange={handleCheckboxChange}
-                                                />
-                                                <label className="form-check-label" htmlFor="adequacyCheckbox">
-                                                    Meu ponto está adequado para receber a montagem das máquinas
-                                                </label>
-                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -219,6 +201,8 @@ const Supplier_Technician: React.FC = () => {
                     </div>
                 </main>
             ) : null}
+                            </>
+                 : <></>}
         </div>
     );
 };

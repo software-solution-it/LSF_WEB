@@ -124,8 +124,12 @@ const Inauguration_2: React.FC = () => {
 
     return (
         <div>
-        <Menu user={currentUser?.user} projectId={projectId} setRefresh={setRefresh}/>
+
             <main>
+
+                {currentUser ?
+                <>
+                <Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-8 text-center" style={{ marginTop: 80 }}>
@@ -204,7 +208,12 @@ const Inauguration_2: React.FC = () => {
 
                         </div>
                     </div>
+                    
                 </div>
+                </>
+                 : <></>}
+                 
+                 
                 <Modal show={showModal} handleClose={handleCloseModal}>
                     <p>Parabéns, você concluiu a etapa atual. Agora você pode passar para a próxima etapa do projeto.</p>
                 </Modal>

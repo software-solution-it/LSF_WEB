@@ -5,6 +5,7 @@ import Menu from '../../components/Menu';
 import projectService from '../../services/projectService';
 import { User } from '../../interface/userInterface';
 import { useLocation } from 'react-router-dom';
+import userService from '../../services/userService';
 
 const Inauguration: React.FC = () => {
     const navigate = useNavigate();
@@ -12,6 +13,23 @@ const Inauguration: React.FC = () => {
     const location = useLocation();
     const { projectId } = location.state || {};
     const [refresh, setRefresh] = useState(false);
+    const [currentUser, setCurrentUser] = useState<User | any>(null);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userResponse = await userService.getCurrentUser();
+                if (userResponse) {
+                    setCurrentUser(userResponse.user);
+                } else {
+                    navigate('/login');
+                }
+            } catch (e) {
+                navigate('/login');
+            }
+        };
+
+        fetchData();
+    }, [navigate]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -126,7 +144,9 @@ const Inauguration: React.FC = () => {
 
     return (
         <div>
-            <Menu user={null} projectId={projectId} setRefresh={setRefresh}/>
+            {currentUser ?
+            <>
+            <Menu user={currentUser} projectId={projectId} setRefresh={setRefresh} menuProject={true}/>
             <main className=''>
                 <div className="container">
                     <div className="row">
@@ -165,6 +185,8 @@ const Inauguration: React.FC = () => {
                     </div>
                 </div>
             </main>
+            </>
+             : <></>}
         </div>
     );
 };

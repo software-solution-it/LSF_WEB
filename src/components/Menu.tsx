@@ -9,9 +9,10 @@ interface MenuProps {
     user: User | null;
     projectId: any;
     setRefresh: any;
+    menuProject?:any
 }
 
-const Menu = ({ user, projectId, setRefresh }: MenuProps) => {
+const Menu = ({ user, projectId, setRefresh, menuProject }: MenuProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [notifications, setNotifications] = useState([]);
@@ -56,7 +57,7 @@ const Menu = ({ user, projectId, setRefresh }: MenuProps) => {
 
     useEffect(() => {
         fetchNotifications();
-    }, [user, setRefresh]);
+    }, [setRefresh]);
 
     const markAsRead = async (id: any) => {
         try {
@@ -157,6 +158,8 @@ const Menu = ({ user, projectId, setRefresh }: MenuProps) => {
                             <i className="me-2 fas fa-star icon"></i> Inauguração
                         </a>
                     </li>
+                    {menuProject? 
+                    <div>
                     <li>
                         <a
                             style={{ cursor: 'pointer' }}
@@ -166,9 +169,25 @@ const Menu = ({ user, projectId, setRefresh }: MenuProps) => {
                                 handleNavigation('/models', { user });
                             }}
                         >
-                            <i className="me-2 fas fa-star icon"></i> Meus modelos
+                            <i className="me-2 fas fa-file icon"></i> Meus modelos
                         </a>
                     </li>
+
+                    <li>
+                        <a
+                            style={{ cursor: 'pointer' }}
+                            className={activeMenuItem === 'Report' ? 'active' : ''}
+                            onClick={() => {
+                                handleMenuItemClick('Report');
+                                handleNavigation('/report', { user });
+                            }}
+                        >
+                            <i className="me-2 fas fa-chart-simple icon"></i> Relatórios
+                        </a>
+                    </li>
+                    </div>
+                    : <></>}
+
                     <li>
                         <a
                             style={{ cursor: 'pointer' }}
