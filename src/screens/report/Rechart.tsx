@@ -42,7 +42,7 @@ const Example = ({ salesData, selectedDate }: any) => {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       const currentDate = payload[0].payload.name;
-      const cycles = salesData.filter(item => format(new Date(item.sellDate), 'dd/MM/yyyy') === currentDate).length;
+      const cycles = salesData.filter((item:any) => format(new Date(item.sellDate), 'dd/MM/yyyy') === currentDate).length;
 
       return (
         <div className="custom-tooltip p-3" style={{width:200, height:130, backgroundColor:'white', borderColor:'gray', border:'2px solid', borderRadius:5}}>
