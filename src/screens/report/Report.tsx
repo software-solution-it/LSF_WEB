@@ -84,13 +84,13 @@ const Report: React.FC = () => {
         setSalesData(data);
 
         if (data && data.length > 0) {
-            const salesStartDate = data.reduce((min, p) => new Date(p.sellDate) < min ? new Date(p.sellDate) : min, new Date(data[0].sellDate));
-            const salesEndDate = data.reduce((max, p) => new Date(p.sellDate) > max ? new Date(p.sellDate) : max, new Date(data[0].sellDate));
+            const salesStartDate = data.reduce((min:any, p:any) => new Date(p.sellDate) < min ? new Date(p.sellDate) : min, new Date(data[0].sellDate));
+            const salesEndDate = data.reduce((max:any, p:any) => new Date(p.sellDate) > max ? new Date(p.sellDate) : max, new Date(data[0].sellDate));
             setStartDate(salesStartDate);
             setEndDate(salesEndDate);
             setDaysCount(differenceInCalendarDays(salesEndDate, salesStartDate) + 1);
 
-            const dateCounts = data.reduce((acc, item) => {
+            const dateCounts = data.reduce((acc:any, item:any) => {
                 const date = item.sellDate.slice(0, 10); // Mantém apenas a parte da data
                 acc[date] = (acc[date] || 0) + 1;
                 return acc;
@@ -100,8 +100,8 @@ const Report: React.FC = () => {
             setMaxWashDate(maxWashDateString);
 
             // Calculando o total dos ganhos, despesas e lucro líquido
-            const total = data.reduce((sum, item) => sum + item.value, 0);
-            const expenses = data.reduce((sum, item) => sum + (item.valueWithNoDiscount || 0), 0);
+            const total = data.reduce((sum:any, item:any) => sum + item.value, 0);
+            const expenses = data.reduce((sum:any, item:any) => sum + (item.valueWithNoDiscount || 0), 0);
             const netProfit = total - expenses;
 
             setTotalEarnings(total);
@@ -110,9 +110,9 @@ const Report: React.FC = () => {
 
             // Calculando informações do dia atual
             const today = format(date, 'yyyy-MM-dd');
-            const todayData = data.filter(item => item.sellDate.startsWith(today));
+            const todayData = data.filter((item:any) => item.sellDate.startsWith(today));
             const todayCycles = todayData.length;
-            const todayEarnings = todayData.reduce((sum, item) => sum + item.value, 0);
+            const todayEarnings = todayData.reduce((sum:any, item:any) => sum + item.value, 0);
 
             setTodayCycles(todayCycles);
             setTodayEarnings(todayEarnings);
@@ -145,7 +145,7 @@ const Report: React.FC = () => {
     };
 
     const handleButtonClick = () => {
-        document.getElementById('fileInput').click();
+            document.getElementById('fileInput')?.click();
     };
 
     return (
@@ -367,7 +367,7 @@ const Report: React.FC = () => {
     );
 };
 
-const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
+const CustomInput = React.forwardRef(({ value, onClick }:any, ref) => (
     <input
       value={value}
       onClick={onClick}
