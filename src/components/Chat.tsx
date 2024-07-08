@@ -94,7 +94,7 @@ const Chat: React.FC<ChatProps> = ({ userId }) => {
     }
   };
 
-  return (
+  return ( 
     <div className="chat-container">
       <div className="chat-icon" onClick={toggleChat}>
           <img style={{width:80, border:'none'}} className="btn rounded-circle" src="https://cdn.chatbot.com/widget/61f28451fdd7c5000728b4f9/2A8kicyF.png" alt="Chat Icon"/>
