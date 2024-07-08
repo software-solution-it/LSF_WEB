@@ -88,7 +88,7 @@ const Chat: React.FC<ChatProps> = ({ userId }) => {
       setMessages(prevMessages => [...prevMessages, ...responseMessages]);
     } catch (error) {
       console.error("Error sending message to the API", error);
-      setMessages(prevMessages => [...prevMessages, { sender: 'openai', text: 'There was an error processing your request. Please try again later.' }]);
+      setMessages(prevMessages => [...prevMessages, { sender: 'openai', text: 'Sistema indisponível, tente novamente mais tarde.' }]);
     } finally {
       setIsLoading(false);
     }
