@@ -123,6 +123,7 @@ const Login: React.FC = () => {
                                                     language === 'pt' ? 'Entrar' : 'Login'
                                                 )}
                                             </button>
+                                            <a className="text-muted" href="/sendemail">Esqueceu a Senha?</a>
                                         </div>
                                     </div>
                                 </div>

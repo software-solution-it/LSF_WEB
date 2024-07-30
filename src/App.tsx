@@ -23,6 +23,7 @@ import Reset from './screens/reset_pass/reset_pass';
 import Model from './screens/models/Model';
 import ViewPdf from './screens/models/ViewPdf';
 import Report from './screens/report/Report';
+import SendEmail from './screens/reset_pass/send_email';
 function App() {
   return (
     <Router>
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<Reset />} />
+        <Route path="/sendemail" element={<SendEmail />} />
         <Route path="/home" element={<Home />} />
         <Route path="/models" element={<Model />} />
         <Route path="/report" element={<Report />} />
