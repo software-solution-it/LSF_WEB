@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import sendemailService from '../../services/sendEmail';
+import sendingEmail from '../../services/sendEmail';
 
 const Send = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [language] = useState('pt');
-/*
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Replace this URL with your API endpoint
-   
-      if (response.ok) {
-        alert('A code has been sent to your email!');
-      } else {
-        setMessage('Failed to send code. Please try again.');
+
+  const handleSubmit = async (event:any) => {
+      event.preventDefault();
+      try {
+        const response = await sendingEmail(email);
+      
+        if (response) {
+          setMessage(response.message);
+        } else {
+          setMessage('Falha ao receber resposta do servidor.');
+        }
+      } catch (error) {
+        console.error('Error sending email:', error);
+        setMessage('Erro ao receber resposta do servidor.');
       }
-    } catch (error) {
-      setMessage('An error occurred. Please try again.');
-    }
-  };*/
-  const Oi= ()=>{}
+  };
+ 
   return (
     <div className="container mt-5">
       <div className="row justify-content-center">
@@ -28,7 +30,7 @@ const Send = () => {
           <div className="card">
             <div className="card-body">
               <h5 className="card-title text-center">{language === 'pt' ? 'Digite seu Email' : 'Enter Your Email'}</h5>
-              <form onSubmit={Oi}>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="email" className="form-label">{language === 'pt' ? ' Email' : 'Email address'}</label>
                   <input

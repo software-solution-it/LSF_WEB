@@ -1,17 +1,22 @@
 import axios from 'axios';
 
-const createGeolocation = async (email: any) => {
+const sendingEmail = async (email: string) => {
     try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.post(`/api/SendEmail?email=${encodeURIComponent(email)}`, {
+        const response = await axios.post("/api/ResetPassword/email",
+            {email}, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return response.data;  
+        console.log(response);
+        if (response.status === 200) { 
+            return { status: "ok", message: response.data.message };
+        }
+        return { status: "error", message: response.data.message };
     } catch (error) {
         console.error(error);
     }
 };
 
-export default {createGeolocation};
+export default sendingEmail;

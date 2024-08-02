@@ -24,6 +24,7 @@ import Model from './screens/models/Model';
 import ViewPdf from './screens/models/ViewPdf';
 import Report from './screens/report/Report';
 import SendEmail from './screens/reset_pass/send_email';
+import HandleConfirmation from './screens/reset_pass/confirmation';
 function App() {
   return (
     <Router>
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/reset" element={<Reset />} />
         <Route path="/sendemail" element={<SendEmail />} />
+        <Route path="/confirmation" element={<HandleConfirmation />} />
         <Route path="/home" element={<Home />} />
         <Route path="/models" element={<Model />} />
         <Route path="/report" element={<Report />} />
